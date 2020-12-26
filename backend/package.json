@@ -1,0 +1,16 @@
+{
+  "name": "movies-download-server",
+  "version": "1.0.0",
+  "description": "api",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server"
+  },
+  "author": "werbeson.contato@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  },
+  "devDependencies": {}
+}
