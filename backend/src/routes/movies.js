@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-// const Log = require("../models/Log");
+const Movies = require("../models/Movies");
 
 router.get("/", async (req, res) => {
   try {
-    res.json("hello");
+    const response = await Movies.find({});
+    res.json(response);
   } catch (error) {
     res.json(error);
   }

@@ -1,0 +1,5 @@
+{
+"database": {
+    "mongo-uri": "mongodb+srv://werbeson2:vux2ylvLLxIiOZZe@cluster0.iwyzt.mongodb.net/temporadas-movies-db?retryWrites=true&w=majority"
+    }
+}
