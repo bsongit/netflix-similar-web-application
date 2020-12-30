@@ -1,56 +1,93 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Carrossel from '../components/Carrossel';
 import Cover from '../components/Cover';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Pager from '../components/Pager';
-import Sidebar from '../components/Sidebar';
+import Api from '../util/Api';
+
+
 type Props = {}
 
+interface Movie {
+  name: string,
+  urlImg: string,
+  data: Date
+}
+
 export default function Home(props : Props)  {
+
+  const [movies, setMovies] = useState<Array<Movie>>();
+  const [skipNumber, setSkipNumber] = useState<number>(0);
+  const [index, setIndex]   = useState<number>(0);
+  const [pageOffSetStart, setPageOffSetStart]   = useState<number>(0);
+  const [pageOffSetEnd, setPageOffSetEnd]   = useState<number>(5);
+  const numberOfPages = new Array(900).fill(0);
+  console.log(numberOfPages);
+  
+  async function getMovies(skip : number) {
+    Api.post('/movies/get15', {skip : skip})
+    .then((response: { data: Array<Movie>}) => {
+     setMovies(response.data);
+    })
+    .catch((error: any) => {
+      console.log(error);
+    });
+  };
+
+  const  handleClassName = (number : number) : string => {
+    return `ml-1 ${index === number ? "bg-yellow" : "bg-dark-blue"}`
+  }
+  const  handleClick = (currentIndex: number) : void => {
+    if(currentIndex <= pageOffSetStart  && pageOffSetStart - 1 > -1){
+      setPageOffSetStart(pageOffSetStart - 1);
+      setPageOffSetEnd(pageOffSetEnd - 1);
+    }
+    if(currentIndex >= pageOffSetEnd - 1 && pageOffSetEnd + 5 < numberOfPages.length){
+      setPageOffSetStart(currentIndex - 2);
+      setPageOffSetEnd(currentIndex + 3);
+    }
+    var currentSkipNumber = 15 * currentIndex;
+      setIndex(currentIndex);
+      setSkipNumber(currentSkipNumber);
+      getMovies(currentSkipNumber);
+  }
+
+  useEffect(() => {
+    getMovies(skipNumber);
+  },[skipNumber]);
+
   return (
       <div className="container">
           <Navbar/>
           <Carrossel>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
+            {movies?.map((movie : Movie) => {
+              return <Cover movie={movie} />;
+            })}
           </Carrossel>
           <Pager>
             <div className="row-pager">
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
+            {movies?.slice(0,5).map((movie : Movie) => {
+              return <Cover movie={movie} />;
+            })}
             </div>
             <div className="row-pager">
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
+            {movies?.slice(5,10).map((movie : Movie) => {
+              return <Cover movie={movie} />;
+            })}
             </div>
             <div className="row-pager">
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
-              <Cover/>
+            {movies?.slice(10,15).map((movie : Movie) => {
+              return <Cover movie={movie} />;
+            })}
             </div>
             <div className="row mt-1">
                 <div className="pager-bt w-25 d-flex">
-                    <button className="ml-1 bg-red">1</button>
-                    <button className="ml-1 bg-red">2</button>
-                    <button className="ml-1 bg-red">3</button>
-                    <button className="ml-1 bg-red">4</button>
+                {numberOfPages.slice(pageOffSetStart,pageOffSetEnd).map((value,index) => {
+                  return <button className={handleClassName(index + pageOffSetStart)} onClick={() => handleClick(index + pageOffSetStart)}>{index + pageOffSetStart + 1}</button>
+                })}
+                 <button className={handleClassName(-1)} disabled>[...]</button>
+                <button className={handleClassName(-1)} onClick={() => handleClick(pageOffSetEnd + 4)}>{5 + pageOffSetEnd}</button>
                 </div>
             </div>
             <Footer/>
@@ -60,3 +97,8 @@ export default function Home(props : Props)  {
       </div>
   )
 }
+
+
+
+
+

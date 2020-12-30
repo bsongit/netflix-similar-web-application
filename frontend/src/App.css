@@ -236,12 +236,19 @@ label{
 }
 .cover{
   margin-left: 1em;
-  width: 14em;
-  min-width: 14em;
+  width: 12em;
+  min-width: 12em;
   min-height: 16em;
   height: 16em;
-  background-color: red;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* box-shadow: 6px 6px 6px; */
+}
+.cover img{
+  width: 80%;
+  height: 90%;
 }
 .pager{
   width: 100%;
@@ -262,6 +269,12 @@ label{
 .pager-bt button{
   margin-left: 1em;
   border-radius: 8px;
+}
+.pager-bt button:focus{
+  border: none;
+  outline: none;
+}
+.pager-bt button::selection{
   background-color: var(--dark-blue);
 }
 .sidebar{
@@ -291,7 +304,6 @@ label{
     min-width: 20em;
     min-height: 25em;
     height: 25em;
-    background-color: red;
     /* box-shadow: 6px 6px 6px; */
   }
   .pager-bt{
@@ -315,3 +327,4 @@ label{
     float: left;
   }
 }
+

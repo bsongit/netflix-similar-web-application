@@ -1,5 +1,10 @@
 {
 "database": {
-    "mongo-uri": "mongodb+srv://werbeson2:vux2ylvLLxIiOZZe@cluster0.iwyzt.mongodb.net/temporadas-movies-db?retryWrites=true&w=majority"
+    "mongo-uri": "mongodb+srv://werbeson2:8HjHt1AWOSnx9qre@cluster0.w4emw.mongodb.net/temporadas-movies-db?retryWrites=true&w=majority"
+    },
+"server": {
+    "port": 5000,
+    "allow-origin": "http://localhost:3000",
+    "domain": "http://localhost:3000"
     }
 }
