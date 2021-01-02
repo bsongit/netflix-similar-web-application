@@ -27,10 +27,9 @@ export default function Home(props : Props)  {
 
   
   async function getMovies(skip : number, category : string) {
-    Api.post('/movies/get15', {skip : skip, category: ''})
+    Api.post('/movies/get15', {skip : skip, category: category})
     .then((response: { data: Array<Movie>}) => {
-        // setMovies(response.data);
-        console.log(response.data)
+        setMovies(response.data);
     })
     .catch((error: any) => {
       console.log(error);

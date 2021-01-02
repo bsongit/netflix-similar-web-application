@@ -13,20 +13,20 @@ router.get("/", async (req, res) => {
 
 router.post("/get15", async (req, res) => {
   try {
-    const response = [];
+    var response =  [];
     {req.body.category !== ""?
       response = await Movies.find({category: req.body.category}).skip(req.body.skip).limit(15)
       : 
       response = await Movies.find().skip(req.body.skip).limit(15)
     }
-    res.send();
+    res.send(response);
   } catch (error) {
     res.send(error);
   }
 });
 router.post("/get-by-name", async (req, res) => {
   try {
-    const response = [];
+    var response = [];
     {req.body.category !== ""?
       response = await Movies.find({name : { $regex : new RegExp(req.body.name, "i")}, cartegory : req.body.cartegory}).limit(5)
       :

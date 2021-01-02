@@ -18,7 +18,7 @@ export default function Navbar(props : Props)  {
   const [category, setCategory] = props.context;
 
 
-  async function getByName(name : string) {
+  async function getByName(name : string, category: string) {
     Api.post('/movies/get-by-name', {name : name, category: category})
     .then((response: { data: Array<Movie>}) => {
      setMovieSearched(response.data);
@@ -30,7 +30,7 @@ export default function Navbar(props : Props)  {
 
   var handleSearch = function(event : ChangeEvent<HTMLInputElement>) : void{
     if(event.target.value !== ""){
-      getByName(event.target.value);
+      getByName(event.target.value, category);
     }
     else{
       setMovieSearched([]);
