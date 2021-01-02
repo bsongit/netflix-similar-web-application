@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar';
 import Pager from '../components/Pager';
 import Api from '../util/Api';
 
-
 type Props = {}
 
 interface Movie {
@@ -17,18 +16,21 @@ interface Movie {
 
 export default function Home(props : Props)  {
 
-  const [movies, setMovies] = useState<Array<Movie>>();
+  const [movies, setMovies] = useState<Array<Movie>>([]);
   const [skipNumber, setSkipNumber] = useState<number>(0);
   const [index, setIndex]   = useState<number>(0);
   const [pageOffSetStart, setPageOffSetStart]   = useState<number>(0);
   const [pageOffSetEnd, setPageOffSetEnd]   = useState<number>(5);
+  const [category, setCategory] = useState<string>("");
   const numberOfPages = new Array(900).fill(0);
-  console.log(numberOfPages);
+
+
   
-  async function getMovies(skip : number) {
-    Api.post('/movies/get15', {skip : skip})
+  async function getMovies(skip : number, category : string) {
+    Api.post('/movies/get15', {skip : skip, category: ''})
     .then((response: { data: Array<Movie>}) => {
-     setMovies(response.data);
+        // setMovies(response.data);
+        console.log(response.data)
     })
     .catch((error: any) => {
       console.log(error);
@@ -50,16 +52,16 @@ export default function Home(props : Props)  {
     var currentSkipNumber = 15 * currentIndex;
       setIndex(currentIndex);
       setSkipNumber(currentSkipNumber);
-      getMovies(currentSkipNumber);
+      getMovies(currentSkipNumber, category);
   }
 
   useEffect(() => {
-    getMovies(skipNumber);
-  },[skipNumber]);
+    getMovies(skipNumber, category);
+  },[skipNumber, category]);
 
   return (
       <div className="container">
-          <Navbar/>
+          <Navbar context={[category,setCategory]}/>
           <Carrossel>
             {movies?.map((movie : Movie) => {
               return <Cover movie={movie} />;

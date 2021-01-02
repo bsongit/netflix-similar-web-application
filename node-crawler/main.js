@@ -71,35 +71,15 @@ async function insertMovies(movie){
     });  
   }
 
-getMovies()
 
-// deleMovies('Os Croods 2: Uma Nova Era (2020) Torrent Dublado e Legendado');
+  async function setCategories(){
+    axios.post('http://localhost:5000/api/movies/set-categories')
+    .then(function (response) {
+        console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });  
+  }
 
-
-
-//   var number = 0;
-//   var interval =  setInterval(() => {
-
-//         if (number >= 924) {
-//             clearInterval(interval);
-//         }
-//         var currentUrl = url + number + '/';
-//         console.log(currentUrl);
-//         fetchData(currentUrl).then( (res) => {
-//             const html = res.data;
-//             const $ = cheerio.load(html);
-//             const statsTable = $('.imagem');
-//             statsTable.each(function() {
-//                 let d = $(this).find('img').attr();
-//                 const movie = {
-//                     name: d.alt,
-//                     urlImg: d['data-src']
-//                 }
-//                 insertMovies(movie)
-//                 // console.log(d['data-src'])
-//             });
-//         })
-//         number = number + 1;
-//     }
-//         , 2000);
-
+  setCategories();

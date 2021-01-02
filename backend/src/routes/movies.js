@@ -13,7 +13,25 @@ router.get("/", async (req, res) => {
 
 router.post("/get15", async (req, res) => {
   try {
-    const response = await Movies.find().skip(req.body.skip).limit(15);
+    const response = [];
+    {req.body.category !== ""?
+      response = await Movies.find({category: req.body.category}).skip(req.body.skip).limit(15)
+      : 
+      response = await Movies.find().skip(req.body.skip).limit(15)
+    }
+    res.send();
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.post("/get-by-name", async (req, res) => {
+  try {
+    const response = [];
+    {req.body.category !== ""?
+      response = await Movies.find({name : { $regex : new RegExp(req.body.name, "i")}, cartegory : req.body.cartegory}).limit(5)
+      :
+      response = await Movies.find({name : { $regex : new RegExp(req.body.name, "i")}}).limit(5)
+    }
     res.send(response);
   } catch (error) {
     res.send(error);
@@ -33,6 +51,19 @@ router.post("/delete", async (req, res) => {
   try {
     const response = await Movies.deleteOne({_id: req.body._id});
     res.send(response)
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
+
+// modify
+
+router.post("/set-categories", async (req, res) => {
+  try {
+    const items = await Movies.updateMany({name : { $regex : new RegExp("Temporada", "i")}}, {category: "serie"});
+    res.send(items);
   } catch (error) {
     res.send(error);
   }
