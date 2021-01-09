@@ -4,7 +4,8 @@
   "description": "api",
   "main": "app.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node main.js",
+    "torrent": "node torrent.js"
   },
   "author": "werbeson.contato@gmail.com",
   "license": "ISC",
@@ -14,7 +15,8 @@
     "config": "^3.3.3",
     "express": "^4.17.1",
     "mongoose": "^5.11.8",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "webtorrent": "^0.112.0"
   },
   "devDependencies": {}
 }

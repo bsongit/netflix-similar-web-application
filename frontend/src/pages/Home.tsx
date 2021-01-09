@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
 import Cover from '../components/Cover';
 import Footer from '../components/Footer';
@@ -11,7 +12,11 @@ type Props = {}
 interface Movie {
   name: string,
   urlImg: string,
-  data: Date
+  data: Date,
+  url: string,
+  imdb: string,
+  release: string
+
 }
 
 export default function Home(props : Props)  {
@@ -23,9 +28,8 @@ export default function Home(props : Props)  {
   const [pageOffSetEnd, setPageOffSetEnd]   = useState<number>(5);
   const [category, setCategory] = useState<string>("");
   const numberOfPages = new Array(900).fill(0);
+  let history = useHistory();
 
-
-  
   async function getMovies(skip : number, category : string) {
     Api.post('/movies/get15', {skip : skip, category: category})
     .then((response: { data: Array<Movie>}) => {
@@ -58,28 +62,29 @@ export default function Home(props : Props)  {
     getMovies(skipNumber, category);
   },[skipNumber, category]);
 
+
   return (
       <div className="container">
           <Navbar context={[category,setCategory]}/>
           <Carrossel>
             {movies?.map((movie : Movie) => {
-              return <Cover movie={movie} />;
+              return <Cover seeImdb={false} movie={movie} onClick={() => history.push(movie.url)}/>;
             })}
           </Carrossel>
           <Pager>
             <div className="row-pager">
             {movies?.slice(0,5).map((movie : Movie) => {
-              return <Cover movie={movie} />;
+              return <Cover seeImdb={true} movie={movie} onClick={() => history.push(movie.url)} />;
             })}
             </div>
             <div className="row-pager">
             {movies?.slice(5,10).map((movie : Movie) => {
-              return <Cover movie={movie} />;
+              return <Cover seeImdb={true} movie={movie} onClick={() => history.push(movie.url)}/>;
             })}
             </div>
             <div className="row-pager">
             {movies?.slice(10,15).map((movie : Movie) => {
-              return <Cover movie={movie} />;
+              return <Cover seeImdb={true} movie={movie} onClick={() => history.push(movie.url)}/>;
             })}
             </div>
             <div className="row mt-1">
@@ -93,8 +98,7 @@ export default function Home(props : Props)  {
             </div>
             <Footer/>
           </Pager>
-
-          
+ 
       </div>
   )
 }

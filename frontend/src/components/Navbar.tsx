@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
+import { useHistory } from "react-router-dom";
 import Api from '../util/Api';
 import Sidebar from './Sidebar';
 
@@ -9,13 +10,15 @@ type Props = {
 interface Movie {
   name: string,
   urlImg: string,
-  data: Date
+  data: Date, 
+  url: string
 }
 
 export default function Navbar(props : Props)  {
   const [isExpanded, setExpanded] = useState(false);
   const [moviesSearched, setMovieSearched] = useState<Array<Movie>>([]);
   const [category, setCategory] = props.context;
+  let history = useHistory();
 
 
   async function getByName(name : string, category: string) {
@@ -45,7 +48,7 @@ export default function Navbar(props : Props)  {
     <div className="navbar" onClick={() => setMovieSearched([])}>
     <div className="search-box">
           {moviesSearched?.map((movie : Movie) => {
-              return <div>
+              return <div onClick={() => history.push(movie.url)}>
                 <span>{movie.name}</span>
                 <img alt={movie.name} src={movie.urlImg}></img>
                 </div>;

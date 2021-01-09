@@ -10,6 +10,30 @@ router.get("/", async (req, res) => {
     res.json(error);
   }
 });
+router.get("/all-url", async (req, res) => {
+  try {
+    const response = await Movies.find().select('url');
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+router.get("/just-filmes", async (req, res) => {
+  try {
+    const response = await Movies.find({category: "filme", release: null});
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+router.get("/just-series", async (req, res) => {
+  try {
+    const response = await Movies.find({category: "serie", release: null});
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 router.post("/get15", async (req, res) => {
   try {
@@ -32,6 +56,14 @@ router.post("/get-by-name", async (req, res) => {
       :
       response = await Movies.find({name : { $regex : new RegExp(req.body.name, "i")}}).limit(5)
     }
+    res.send(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.post("/get-by-url", async (req, res) => {
+  try {
+    const response = await Movies.findOne({url: req.body.url});
     res.send(response);
   } catch (error) {
     res.send(error);
@@ -64,6 +96,14 @@ router.post("/set-categories", async (req, res) => {
   try {
     const items = await Movies.updateMany({name : { $regex : new RegExp("Temporada", "i")}}, {category: "serie"});
     res.send(items);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.post("/update-one", async (req, res) => {
+  try {
+    const item = await Movies.updateOne({_id : req.body._id}, {...req.body});
+    res.send({id : req.body._id, item : item});
   } catch (error) {
     res.send(error);
   }
