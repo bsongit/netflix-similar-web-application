@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+const mongoose = require("mongoose");
 
-const movieSchema = new Schema({
+const movieSchema = new mongoose.Schema({
   name: {type: String},
   urlImg: {type: String},
   data: { type: Date, default: Date.now },
@@ -17,4 +17,4 @@ const movieSchema = new Schema({
   url: {type: String}
 });
 
-export default Movies = model("movies", movieSchema);
+module.exports = Movies = mongoose.model("movies", movieSchema);
