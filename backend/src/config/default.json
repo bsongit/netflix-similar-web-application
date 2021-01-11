@@ -3,8 +3,8 @@
     "mongo-uri": "mongodb+srv://werbeson2:8HjHt1AWOSnx9qre@cluster0.w4emw.mongodb.net/temporadas-movies-db?retryWrites=true&w=majority"
     },
 "server": {
-    "port": 5000,
-    "allow-origin": "http://localhost:3000",
-    "domain": "http://localhost:3000"
+    "port": 3000,
+    "allow-origin": "http://localhost:80",
+    "domain": "http://localhost:80"
     }
 }

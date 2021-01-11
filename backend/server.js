@@ -4,7 +4,7 @@ const cors = require('./src/config/cors');
 const app = express();
 
 const hostname = '127.0.0.1';
-const port = 5000;
+const port = 3000;
 
 app.use(express.json({ urlencoded: false }));
 
