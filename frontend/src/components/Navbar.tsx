@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 
 type Props = {
   context : [string, React.Dispatch<React.SetStateAction<string>>];
+  contextSidebar : [string, React.Dispatch<React.SetStateAction<string>>];
 }
 
 interface Movie {
@@ -70,7 +71,7 @@ export default function Navbar(props : Props)  {
       </div>
       <div></div>
     </div>      
-      {isExpanded? <Sidebar /> : ""}
+      {isExpanded? <Sidebar context={props.contextSidebar} contextExpanded={[isExpanded, setExpanded]} /> : ""}
   </div>
   )
 }

@@ -189,9 +189,11 @@ class WebtorGenerator {
   }
 
   push(data) {
+
     const id = Object(_uuid__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])();
     const elId = `webtor-${id}`;
     const dd = Object.assign({}, defaults, data);
+    console.log(dd)
     const el = document.getElementById(dd.id);
     if (!el) throw `Failed to find element with id "${dd.id}"`;
 
@@ -241,6 +243,7 @@ class WebtorGenerator {
     iframe.src = url;
     const self = this;
     const player = new Player((name, data) => {
+
       iframe.contentWindow.postMessage({
         id,
         name,
@@ -274,6 +277,7 @@ class WebtorGenerator {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (function (data) {
+
   if (!data) {
     return new WebtorGenerator();
   } else if (Array.isArray(data)) {
@@ -285,6 +289,7 @@ class WebtorGenerator {
 
     return wg;
   } else {
+
     return data;
   }
 });
@@ -1450,7 +1455,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     function depricate(key) {
       var splitName = key.split('Callback')
-
       if (splitName.length === 2) {
         var name =
           'on' + splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1)

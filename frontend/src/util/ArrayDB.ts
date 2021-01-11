@@ -1,0 +1,22 @@
+export const genereArray = [
+    'Animação',
+    'Ação',
+    'Aventura',
+    'Comédia',
+    'Crime',
+    'Drama',
+    'Documentário',
+    'Família',
+    'Fantasia',
+    'Faroeste',
+    'Ficção Científica',
+    'Guerra',
+    'História',
+    'Kids',
+    'Musical',
+    'Política',
+    'Reality-TV',
+    'Romance',
+    'Suspense',
+    'Terror'
+]

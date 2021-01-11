@@ -1,8 +1,8 @@
 import uuid from './uuid';
 import {iframeResize} from 'iframe-resizer';
 const defaults = {
-    baseUrl:    'https://webtor.io',
-    // baseUrl: 'http://localhost:4000',
+    // baseUrl:    'https://webtor.io',
+    baseUrl: 'http://localhost:4000',
     width:      '800px',
     height:     null,
     mode:       'video',
@@ -53,6 +53,7 @@ class WebtorGenerator {
     OPEN_SUBTITLES  = 'open subtitles';
 
     push(data) {
+        console.log(data);
         const id = uuid();
         const elId = `webtor-${id}`;
         const dd = Object.assign({}, defaults, data);
@@ -123,14 +124,17 @@ class WebtorGenerator {
 
 export default function(data) {
     if (!data) {
+        console.log(data);
         return new WebtorGenerator();
     } else if (Array.isArray(data)) {
+        console.log(data);
         const wg = new WebtorGenerator();
         for (const d of data) {
             wg.push(d);
         }
         return wg;
     } else {
+        console.log(data);
         return data;
     }
 }

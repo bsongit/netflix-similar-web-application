@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 });
 router.get("/all-url", async (req, res) => {
   try {
-    const response = await Movies.find().select('url');
+    const response = await Movies.find().select(['url']);
     res.json(response);
   } catch (error) {
     res.json(error);
@@ -39,15 +39,16 @@ router.post("/get15", async (req, res) => {
   try {
     var response =  [];
     {req.body.category !== ""?
-      response = await Movies.find({category: req.body.category}).skip(req.body.skip).limit(15)
+      response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
       : 
-      response = await Movies.find().skip(req.body.skip).limit(15)
+      response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
     }
     res.send(response);
   } catch (error) {
     res.send(error);
   }
 });
+
 router.post("/get-by-name", async (req, res) => {
   try {
     var response = [];

@@ -15,7 +15,8 @@ interface Movie {
   data: Date,
   url: string,
   imdb: string,
-  release: string
+  release: string,
+  synopsis: string
 
 }
 
@@ -27,13 +28,15 @@ export default function Home(props : Props)  {
   const [pageOffSetStart, setPageOffSetStart]   = useState<number>(0);
   const [pageOffSetEnd, setPageOffSetEnd]   = useState<number>(5);
   const [category, setCategory] = useState<string>("");
+  const [genere, setGenere] = useState<string>("");
   const numberOfPages = new Array(900).fill(0);
   let history = useHistory();
 
-  async function getMovies(skip : number, category : string) {
-    Api.post('/movies/get15', {skip : skip, category: category})
+  async function getMovies(skip : number, category : string, genere : string) {
+    Api.post('/movies/get15', {skip : skip, category: category, genere : genere})
     .then((response: { data: Array<Movie>}) => {
         setMovies(response.data);
+        console.log(response.data)
     })
     .catch((error: any) => {
       console.log(error);
@@ -55,17 +58,17 @@ export default function Home(props : Props)  {
     var currentSkipNumber = 15 * currentIndex;
       setIndex(currentIndex);
       setSkipNumber(currentSkipNumber);
-      getMovies(currentSkipNumber, category);
+      getMovies(currentSkipNumber, category, genere);
   }
 
   useEffect(() => {
-    getMovies(skipNumber, category);
-  },[skipNumber, category]);
+    getMovies(skipNumber, category, genere);
+  },[skipNumber, category, genere]);
 
 
   return (
       <div className="container">
-          <Navbar context={[category,setCategory]}/>
+          <Navbar context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
           <Carrossel>
             {movies?.map((movie : Movie) => {
               return <Cover seeImdb={false} movie={movie} onClick={() => history.push(movie.url)}/>;
