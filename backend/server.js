@@ -3,6 +3,9 @@ const database = require('./src/config/db.js');
 const cors = require('./src/config/cors');
 const app = express();
 
+// const hostname = 'localhost';
+// const port = 5000;
+
 const hostname = '185.212.128.162';
 const port = 3000;
 

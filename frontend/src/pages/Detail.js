@@ -43,10 +43,8 @@ export default function Detail(props)  {
             if (e.name == window.webtor.TORRENT_FETCHED) {
                 for (const f of e.data.files) {
                     console.log(f.name)
-                    if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4"){
+                    if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
                         setHasClick(true);
-                        setSkipAnounce(true);
-                        
                     }
                     if (!f.name.endsWith('.mkv')) continue;
                 }
@@ -82,9 +80,8 @@ export default function Detail(props)  {
             if (e.name == window.webtor.TORRENT_FETCHED) {
                 console.log('Torrent fetched!', e.data.files);
                 for (const f of e.data.files) {
-                    if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4"){
+                    if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
                         setHasClick(true);
-                        setSkipAnounce(true);
                     }
                     if (!f.name.endsWith('.mp4')) continue;
                 }
@@ -108,6 +105,11 @@ export default function Detail(props)  {
   var handleChange = function(event){
     webtorEp(event.target.value);
     setVVisibility(true);
+  }
+
+  var handleChange2 = function(event){
+    webtorEp(event.target.value);
+    iframe.remove();
   }
 
 
@@ -142,10 +144,23 @@ export default function Detail(props)  {
   
  function onWatch(){
         setVVisibility(true)
+        if(hasClcik)
+            setSkipAnounce(true);
   }
 
 
   return (<div className="detail-bg">
+                <button className="back-button" onClick={() => history.push("/")}>⮢</button>
+                <div className="align-end mt-2">
+                <select className={(vVisibility && movie?.category === "serie") ? 'select-series' : 'collapsed'} onChange={handleChange2} >
+                            <option  default>Selecionar um epsódio</option>
+                        {movie?.eps.map(ep => {
+                            return (
+                                <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
+                            )
+                        })}
+                        </select>
+                </div>
                 <div className={vVisibility? "show" : "collapsed"} id="player"></div>
                 <div className="row">
                     <div className={skipAnounce? "skip-anounce" : "collapsed"}>Pause o anúncio ou clique em Next para pular:</div>

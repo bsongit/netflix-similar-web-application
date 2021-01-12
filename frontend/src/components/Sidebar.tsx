@@ -3,14 +3,22 @@ import {genereArray} from '../util/ArrayDB'
 type Props = {
   context : [string, React.Dispatch<React.SetStateAction<string>>];
   contextExpanded: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  contextLoad : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export default function Sidebar(props : Props)  {
   const [genere, setGenere] = props.context;
   const [isExpanded, setExpanded] = props.contextExpanded;
+  const [load, setLoad] = props.contextLoad;
+  async function loading(){
+    setTimeout(() => setLoad(false),1000)
+  }
   function selectGenere(g : string, exp: boolean){
     setGenere(g);
     setExpanded(exp);
+    setLoad(true);
+    loading();
+    window.scrollTo(0, 0);
   }
   return (
     <div className="sidebar">

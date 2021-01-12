@@ -5,7 +5,7 @@ type Props = {
 
 export default function Carrossel(props : Props)  {
   return (
-      <div className="carrossel">
+      <div className="box-shadow carrossel">
         {props.children}
       </div>
   )
