@@ -105,6 +105,7 @@ export default function Detail(props)  {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getByUrl(history.location.pathname.replace("/",""))
     watchAd(history)
     // eslint-disable-next-line
@@ -143,8 +144,9 @@ export default function Detail(props)  {
             setSkipAnounce(true);
   }
 
+
   return (<div className="detail-bg">
-                <button className="back-button" onClick={() => history.push("/")}>⮢</button>
+                <button className="back-button" onClick={() => history.push("/")}>{window.innerWidth < 400? 'VOLTAR' : "⮢"}</button>
                 <div className="align-end mt-2">
                 <select className={(vVisibility && movie?.category === "serie") ? 'select-series' : 'collapsed'} onChange={handleChange2} >
                             <option  default>Selecionar um epsódio</option>

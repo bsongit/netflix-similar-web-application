@@ -19,7 +19,7 @@ export default function Cover(props : Props)  {
   return (
     <div className="cover" onClick={() => props.onClick()} onMouseOver={() => setSVisibility(true)} onMouseOut={() => setSVisibility(false)}>
       <img alt={props.movie.name} src={props.movie.urlImg}></img>
-        {props.seeImdb? <span>IMDb: {props.movie.imdb}</span> : ""}
+        {props.seeImdb? <span className="hide-mobile">IMDb: {props.movie.imdb}</span> : ""}
         <div className={`${synopsisVisibility? 'tooltip-synopsis' : 'collapsed'}`}>{props.movie.synopsis}</div> 
     </div>
   )

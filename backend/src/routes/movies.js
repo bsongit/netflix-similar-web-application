@@ -57,6 +57,14 @@ router.get("/get3-carrossel", async (req, res) => {
     res.send(error);
   }
 });
+router.get("/get1", async (req, res) => {
+  try {
+    var response = await Movies.find().skip(Math.floor(Math.random() * 16000)).limit(1).select(['-magnet', '-eps'])
+    res.send(response[0]);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 
 router.post("/get-by-name", async (req, res) => {

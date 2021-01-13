@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Api from '../util/Api';
 import Sidebar from './Sidebar';
@@ -19,6 +19,7 @@ interface Movie {
 
 export default function Navbar(props : Props)  {
   const [isExpanded, setExpanded] = useState(false);
+  const [searchWord, setSearchWord] = useState<string>("");
   const [searcBar, setSearcBar] = useState(false);
   const [moviesSearched, setMovieSearched] = useState<Array<Movie>>([]);
   const [category, setCategory] = props.context;
@@ -38,10 +39,12 @@ export default function Navbar(props : Props)  {
   var handleSearch = function(event : ChangeEvent<HTMLInputElement>) : void{
     if(event.target.value !== ""){
       getByName(event.target.value, category);
-      console.log(load);
+      setSearchWord(event.target.value)
     }
     else{
       setMovieSearched([]);
+      setSearcBar(false)
+      setSearchWord("")
     }
   }
   async function loading(){
@@ -60,10 +63,10 @@ export default function Navbar(props : Props)  {
     setTimeout(() => history.push(url),800)
   }
 
-  return (<div className={`box-shadow mobile-nav`}>
 
+  return (<div className={"box-shadow mobile-nav"}>
     <div className="navbar" onClick={() => setMovieSearched([])}>
-    <div className="search-box">
+    <div className={searchWord.length > 0? "search-box" : "collapsed"} >
           {moviesSearched?.map((movie : Movie) => {
               return <div className="search-row" onClick={() => selectMovie(movie.url)}>
                 <span>{movie.name}</span>

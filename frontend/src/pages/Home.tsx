@@ -24,6 +24,7 @@ interface Movie {
 export default function Home(props : Props)  {
 
   const [movies, setMovies] = useState<Array<Movie>>([]);
+  const [primaryMovie, setPrimaryMovie] = useState<Movie>();
   const [load, setLoad] = useState<boolean>(false);
   const [moviesCarrossel, setMoviesCarrossel] = useState<Array<Movie>>([]);
   const [skipNumber, setSkipNumber] = useState<number>(0);
@@ -53,6 +54,7 @@ export default function Home(props : Props)  {
     Api.get('/movies/get3-carrossel')
     .then((response: { data: Array<Movie>}) => {
         setMoviesCarrossel(response.data);
+        setPrimaryMovie(response.data[1]);
     })
     .catch((error: any) => {
       console.log(error);
@@ -89,34 +91,44 @@ export default function Home(props : Props)  {
     setLoad(true);
     loading();
     setTimeout(() => history.push(url),800)
-
   }
+
+
   return (
       <div className="container">
           {load? <LoadComponent></LoadComponent> : ""}
           <Navbar contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
-          <Carrossel>
-            {moviesCarrossel?.map((movie : Movie) => {
-              return <Cover seeImdb={false} movie={movie} onClick={() => selectMovie(movie.url)}/>;
-            })}
-          </Carrossel>
+          {window.innerWidth > 400? 
+                <Carrossel>
+                {moviesCarrossel?.map((movie : Movie) => {
+                  return <Cover seeImdb={false} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                })}
+              </Carrossel>
+          : <div className="primary-movie">
+              <img  src={primaryMovie?.urlImg} alt={primaryMovie?.name}/>
+            </div>
+          }
+
           <Pager>
             <div className="row-pager">
+             <span className="hide-pc">........................................................</span>
             {movies?.slice(0,5).map((movie : Movie) => {
               return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
             })}
             </div>
             <div className="row-pager">
+            <span className="hide-pc">........................................................</span>
             {movies?.slice(5,10).map((movie : Movie) => {
               return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
             })}
             </div>
             <div className="row-pager">
+            <span className="hide-pc">........................................................</span>
             {movies?.slice(10,15).map((movie : Movie) => {
               return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
             })}
             </div>
-            <div className="row mt-1 pager-buttons">
+            <div className="hide-mobile row mt-1 pager-buttons">
                 <div className="pager-bt w-25 d-flex">
                 {numberOfPages.slice(pageOffSetStart,pageOffSetEnd).map((value,index) => {
                   return <button className={handleClassName(index + pageOffSetStart)} onClick={() => handleClick(index + pageOffSetStart)}>{index + pageOffSetStart + 1}</button>
@@ -127,7 +139,6 @@ export default function Home(props : Props)  {
             </div>
             <Footer/>
           </Pager>
- 
       </div>
   )
 }

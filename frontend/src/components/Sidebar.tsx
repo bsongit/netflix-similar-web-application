@@ -23,6 +23,7 @@ export default function Sidebar(props : Props)  {
   }
   return (
     <div className="sidebar">
+      <h3 className="text-red bold row">CATEGORIAS</h3>
       {genereArray.map(genere => {
         return <button onClick={() => selectGenere(genere,false)}>{genere}</button>
       })}

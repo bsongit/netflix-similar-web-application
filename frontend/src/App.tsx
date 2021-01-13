@@ -5,6 +5,7 @@ import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Api from './util/Api'
 
+
 export default function App() {
   var [routes, setRoutes] = useState<Route[]>([]);
   interface Route {
