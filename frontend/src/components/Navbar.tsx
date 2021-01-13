@@ -8,6 +8,7 @@ type Props = {
   context : [string, React.Dispatch<React.SetStateAction<string>>];
   contextSidebar : [string, React.Dispatch<React.SetStateAction<string>>];
   contextLoad : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  contextArrive : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 interface Movie {
@@ -25,6 +26,7 @@ export default function Navbar(props : Props)  {
   const [category, setCategory] = props.context;
   let history = useHistory();
   const [load, setLoad] = props.contextLoad;
+  const [isArrive, setArrive] = props.contextArrive;
 
   async function getByName(name : string, category: string) {
     Api.post('/movies/get-by-name', {name : name, category: category})
@@ -48,6 +50,7 @@ export default function Navbar(props : Props)  {
     }
   }
   async function loading(){
+    setArrive(false)
     setTimeout(() => setLoad(false),1000)
   }
   var handleChange = function(event : ChangeEvent<HTMLSelectElement>) : void{
@@ -93,7 +96,7 @@ export default function Navbar(props : Props)  {
       </div>
       <div></div>
     </div>      
-      {isExpanded? <Sidebar contextLoad={props.contextLoad} context={props.contextSidebar} contextExpanded={[isExpanded, setExpanded]} /> : ""}
+      {isExpanded? <Sidebar contextArrive={props.contextArrive} contextLoad={props.contextLoad} context={props.contextSidebar} contextExpanded={[isExpanded, setExpanded]} /> : ""}
   </div>
   )
 }

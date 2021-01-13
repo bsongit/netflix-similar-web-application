@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
@@ -33,6 +34,7 @@ export default function Home(props : Props)  {
   const [pageOffSetEnd, setPageOffSetEnd]   = useState<number>(5);
   const [category, setCategory] = useState<string>("");
   const [genere, setGenere] = useState<string>("");
+  const [isArrive, setArrive] = useState<boolean>(true);
   const numberOfPages = new Array(900).fill(0);
   let history = useHistory();
 
@@ -47,11 +49,12 @@ export default function Home(props : Props)  {
   };
 
   async function loading(){
+    setArrive(false);
     setTimeout(() => setLoad(false),1000)
   }
 
-  async function getMoviesCorrossel() {
-    Api.get('/movies/get3-carrossel')
+  async function getMoviesCorrossel(category : string, genere : string) {
+    Api.post('/movies/get3-carrossel',{category : category, genere : genere})
     .then((response: { data: Array<Movie>}) => {
         setMoviesCarrossel(response.data);
         setPrimaryMovie(response.data[1]);
@@ -83,7 +86,7 @@ export default function Home(props : Props)  {
   }
 
   useEffect(() => {
-    getMoviesCorrossel();
+    getMoviesCorrossel(category, genere);
     getMovies(skipNumber, category, genere);
   },[skipNumber, category, genere]);
 
@@ -97,7 +100,7 @@ export default function Home(props : Props)  {
   return (
       <div className="container">
           {load? <LoadComponent></LoadComponent> : ""}
-          <Navbar contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
+          <Navbar contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
           {window.innerWidth > 400? 
                 <Carrossel>
                 {moviesCarrossel?.map((movie : Movie) => {
@@ -108,40 +111,93 @@ export default function Home(props : Props)  {
               <img  src={primaryMovie?.urlImg} alt={primaryMovie?.name}/>
             </div>
           }
+            {isArrive? 
+                  <Pager>
+                      <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos de 2020</h1>
+                      <div className="row-pager">
+                       <span className="hide-pc">........................................................</span>
+                      {movies?.slice(0,5).map((movie : Movie) => {
+                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
+                      })}
+                      </div>
+                      <h2 className="text-shadow-light-blue ml-1">Series online de 2020</h2>
+                      <div className="row-pager">
+                      <span className="hide-pc">........................................................</span>
+                      {movies?.slice(5,10).map((movie : Movie) => {
+                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                      })}
+                      </div>
+                      
+                      <h2 className={"text-shadow-light-blue ml-1"}>Os 5 filmes mais assistidos de 2020</h2>
+                    
+                      <div className="row-pager">
+                      <span className="hide-pc">........................................................</span>
+                      
+                      {
+                      movies?.slice(10,15).map((movie : Movie) => {
+                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                      })}
+                      </div>
+
+                      <h2 className={"text-shadow-light-blue ml-1"}>Outros titulos relacionados</h2>
+                      <div className="row-pager">
+                      <span className="hide-pc">........................................................</span>
+                      
+                      {
+                      movies?.slice(15,20).map((movie : Movie) => {
+                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                      })
+                      }
+                      </div>
+                      <div className="hide-mobile row mt-1 pager-buttons">
+                          <div className="pager-bt w-25 d-flex">
+                          {numberOfPages.slice(pageOffSetStart,pageOffSetEnd).map((value,index) => {
+                            return <button className={handleClassName(index + pageOffSetStart)} onClick={() => handleClick(index + pageOffSetStart)}>{index + pageOffSetStart + 1}</button>
+                          })}
+                           <button className={handleClassName(-1)} disabled>[...]</button>
+                          <button className={handleClassName(-1)} onClick={() => handleClick(pageOffSetEnd + 4)}>{5 + pageOffSetEnd}</button>
+                          </div>
+                      </div>
+                      <Footer/>
+              </Pager>
+          :
 
           <Pager>
-            <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos de 2021</h1>
-            <div className="row-pager">
-             <span className="hide-pc">........................................................</span>
-            {movies?.slice(0,5).map((movie : Movie) => {
-              return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
-            })}
-            </div>
-            <h2 className="text-shadow-light-blue ml-1">Series online de 2021</h2>
-            <div className="row-pager">
-            <span className="hide-pc">........................................................</span>
-            {movies?.slice(5,10).map((movie : Movie) => {
-              return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
-            })}
-            </div>
-            <h2 className="text-shadow-light-blue ml-1">Os 5 filmes mais assistidos de 2021</h2>
-            <div className="row-pager">
-            <span className="hide-pc">........................................................</span>
-            {movies?.slice(10,15).map((movie : Movie) => {
-              return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
-            })}
-            </div>
-            <div className="hide-mobile row mt-1 pager-buttons">
-                <div className="pager-bt w-25 d-flex">
-                {numberOfPages.slice(pageOffSetStart,pageOffSetEnd).map((value,index) => {
-                  return <button className={handleClassName(index + pageOffSetStart)} onClick={() => handleClick(index + pageOffSetStart)}>{index + pageOffSetStart + 1}</button>
+                <h3 className="text-shadow-light-blue ml-1">Encontrados : {category && genere? category+ 's de '+ genere.toLocaleLowerCase() : genere} </h3>
+                <div className="row-pager">
+                <span className="hide-pc">........................................................</span>
+                {movies?.slice(20,25).map((movie : Movie) => {
+                  return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
                 })}
-                 <button className={handleClassName(-1)} disabled>[...]</button>
-                <button className={handleClassName(-1)} onClick={() => handleClick(pageOffSetEnd + 4)}>{5 + pageOffSetEnd}</button>
                 </div>
-            </div>
-            <Footer/>
-          </Pager>
+                <div className="row-pager">
+                <span className="hide-pc">........................................................</span>
+                {movies?.slice(25,30).map((movie : Movie) => {
+                  return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                })}
+                </div>
+                <div className="row-pager">
+                <span className="hide-pc">........................................................</span>
+                { 
+                movies?.slice(30,35).map((movie : Movie) => {
+                  return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                })
+                }
+                </div>
+                <div className="hide-mobile row mt-1 pager-buttons">
+                    <div className="pager-bt w-25 d-flex">
+                    {numberOfPages.slice(pageOffSetStart,pageOffSetEnd).map((value,index) => {
+                      return <button className={handleClassName(index + pageOffSetStart)} onClick={() => handleClick(index + pageOffSetStart)}>{index + pageOffSetStart + 1}</button>
+                    })}
+                    <button className={handleClassName(-1)} disabled>[...]</button>
+                    <button className={handleClassName(-1)} onClick={() => handleClick(pageOffSetEnd + 4)}>{5 + pageOffSetEnd}</button>
+                    </div>
+                </div>
+                <Footer/>
+              </Pager>
+          
+              }
+
       </div>
   )
 }

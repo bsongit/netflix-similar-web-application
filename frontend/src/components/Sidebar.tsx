@@ -4,13 +4,16 @@ type Props = {
   context : [string, React.Dispatch<React.SetStateAction<string>>];
   contextExpanded: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   contextLoad : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  contextArrive : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export default function Sidebar(props : Props)  {
   const [genere, setGenere] = props.context;
   const [isExpanded, setExpanded] = props.contextExpanded;
   const [load, setLoad] = props.contextLoad;
+  const [isArrive, setArrive] = props.contextArrive;
   async function loading(){
+    setArrive(false);
     setTimeout(() => setLoad(false),1000)
   }
   function selectGenere(g : string, exp: boolean){

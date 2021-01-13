@@ -35,23 +35,50 @@ router.get("/just-series", async (req, res) => {
   }
 });
 
+// router.post("/get15", async (req, res) => {
+//   try {
+//     var response =  [];
+//     {req.body.category !== ""?
+//       response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
+//       : 
+//       response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
+//     }
+//     res.send(response);
+//   } catch (error) {
+//     res.send(error);
+//   }
+// });
+
 router.post("/get15", async (req, res) => {
   try {
+
     var response =  [];
     {req.body.category !== ""?
       response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
       : 
       response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
     }
-    res.send(response);
+
+
+    var filmesLancamento = await Movies.find({release: { $regex: '.*' + '2020' + '.*' } , category: "filme", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(5).select(['-magnet', '-eps']);
+    var seriesLancamento = await Movies.find({release: { $regex: '.*' + '2020' + '.*' } , category: "serie", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(5).select(['-magnet', '-eps']);
+    var maisAssistidos = await Movies.find({imdb: { $regex: '9.' }}).limit(5).select(['-magnet', '-eps']);
+    var outros = await Movies.find({category: req.body.cartegory || "filme", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip + 5).limit(5).select(['-magnet', '-eps']);
+    res.send([...filmesLancamento,...seriesLancamento,...maisAssistidos,...outros,...response]);
   } catch (error) {
     res.send(error);
   }
 });
 
-router.get("/get3-carrossel", async (req, res) => {
+router.post("/get3-carrossel", async (req, res) => {
   try {
-    var response = await Movies.find().skip(Math.floor(Math.random() * 16000)).limit(3).select(['-magnet', '-eps'])
+    var response = [];
+  {req.body.category !== ""?
+      response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(Math.floor(Math.random() * 100)).limit(3).select(['-magnet', '-eps'])
+      : 
+      response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(Math.floor(Math.random() * 100)).limit(3).select(['-magnet', '-eps'])
+      }
+
     res.send(response);
   } catch (error) {
     res.send(error);
