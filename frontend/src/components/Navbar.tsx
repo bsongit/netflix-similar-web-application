@@ -19,11 +19,11 @@ interface Movie {
 
 export default function Navbar(props : Props)  {
   const [isExpanded, setExpanded] = useState(false);
+  const [searcBar, setSearcBar] = useState(false);
   const [moviesSearched, setMovieSearched] = useState<Array<Movie>>([]);
   const [category, setCategory] = props.context;
   let history = useHistory();
   const [load, setLoad] = props.contextLoad;
-
 
   async function getByName(name : string, category: string) {
     Api.post('/movies/get-by-name', {name : name, category: category})
@@ -38,6 +38,7 @@ export default function Navbar(props : Props)  {
   var handleSearch = function(event : ChangeEvent<HTMLInputElement>) : void{
     if(event.target.value !== ""){
       getByName(event.target.value, category);
+      console.log(load);
     }
     else{
       setMovieSearched([]);
@@ -59,7 +60,7 @@ export default function Navbar(props : Props)  {
     setTimeout(() => history.push(url),800)
   }
 
-  return (<div className="box-shadow">
+  return (<div className={`box-shadow mobile-nav`}>
 
     <div className="navbar" onClick={() => setMovieSearched([])}>
     <div className="search-box">
@@ -67,17 +68,18 @@ export default function Navbar(props : Props)  {
               return <div className="search-row" onClick={() => selectMovie(movie.url)}>
                 <span>{movie.name}</span>
                 <img alt={movie.name} src={movie.urlImg}></img>
-                </div>;
+                </div>
             })}
         </div>
-      <div>
+      <div className="search-mobile">
         <div className="row ">
         <button className="w-3" onClick={() => setExpanded(!isExpanded)}>☰</button>
-        <img className="hide-mobile logo" src={Logo}></img>
+        <img className="hide-mobile logo" alt="logo" src={Logo}></img>
       </div>
       </div>
       <div className="w-50 mt-05 d-flex">
-        <input className="" placeholder="Pesquisar por todo site" onChange={handleSearch} ></input>
+        <input className={searcBar? "" : "collapsed" } placeholder="Pesquisar por todo site" onChange={handleSearch} ></input>
+        <button className={!searcBar? "mobile-lupa" : "collapsed" } onClick={() => setSearcBar(true)}>⌕</button>
       </div>
       <div className="w-25 mt-05 d-flex">
       <select onChange={handleChange}>

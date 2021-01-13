@@ -116,7 +116,7 @@ export default function Home(props : Props)  {
               return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
             })}
             </div>
-            <div className="row mt-1">
+            <div className="row mt-1 pager-buttons">
                 <div className="pager-bt w-25 d-flex">
                 {numberOfPages.slice(pageOffSetStart,pageOffSetEnd).map((value,index) => {
                   return <button className={handleClassName(index + pageOffSetStart)} onClick={() => handleClick(index + pageOffSetStart)}>{index + pageOffSetStart + 1}</button>

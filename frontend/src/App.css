@@ -222,12 +222,9 @@ button{
   background-color: transparent;
   border: none;
   color: white;
-}
-button{
-  background-color: transparent;
-  color: white;
   cursor: pointer;
 }
+
 button:hover{
   background-color: gray;
   color: white;
@@ -570,6 +567,17 @@ label{
   background-color: var(--beson-red);
   cursor: pointer;
 }
+.mobile-lupa{
+  font-size: 3em;
+  height: 0.5em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: gray;
+}
+.mobile-lupa:hover{
+  background-color: transparent;
+}
 @media only screen and (max-width: 600px) {
   .row-pager{
     margin-top: 1em;
@@ -636,5 +644,37 @@ label{
     width: 6em;
     height: 100%;
   }
+  .mobile-nav{
+    position: absolute;
+    z-index: 5000;
+    background-color: #32d174;
+    font-size: 1.3em;
+    top: 92%;
+  }
+  .top92{
+    top: 92% !important;
+  }
+  .mobile-nav input{
+    outline: none;
+  }
+
+  .carrossel{
+    overflow: scroll;
+  }
+  .pager-buttons{
+    max-width: 100%;
+  }
+  .pager-bt button{
+    margin-left: 0.1em;
+    border-radius: 8px;
+    max-width: 2em;
+    font-size: 0.8em;
+    min-width: 2em;
+  }
+  .pager-bt{
+    max-width: 15%;
+    display: flex;
+  }
+
 }
 

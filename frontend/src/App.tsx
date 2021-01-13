@@ -5,16 +5,14 @@ import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Api from './util/Api'
 
-
-
 export default function App() {
-
   var [routes, setRoutes] = useState<Route[]>([]);
   interface Route {
     _id : string,
     url : string
   }
-  async function urls() {
+
+  const urls = async function() {
     await Api.get('/movies/all-url').then((response: {data : Route[]}) => {
      setRoutes(response.data);
    }).catch((error: any) => {
@@ -22,9 +20,10 @@ export default function App() {
    })
  };
 
- useEffect(() => {
+  useEffect(() => {
    urls();
- },[])
+   // eslint-disable-next-line
+ },[]);
   return (
   <BrowserRouter>
     <Switch>

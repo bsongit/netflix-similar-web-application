@@ -9,7 +9,6 @@ export default function Detail(props)  {
   const [iframe, setIframe] = useState();
   const [skipAnounce, setSkipAnounce] = useState(false);
 
-
   async function getByUrl(url){
     await Api.post("/movies/get-by-url",{url : url})
     .then((response) => {
@@ -17,13 +16,10 @@ export default function Detail(props)  {
       if(response.data.category ==="filme"){
         webtor(response.data);
       }
-
     }).catch((error) => {
       console.error(error)
     })
   }
-
-
 
   function webtor(video){
     window.webtor = window.webtor || [];
@@ -31,16 +27,14 @@ export default function Detail(props)  {
     window.webtor.push({
         id: 'player',
         baseUrl: 'https://webtor.io',
-        // baseUrl: 'http://localhost:4000',
         magnet:  video.magnet.split(",")[0],
-        // magnet:  "",
         width: '100%',
         height: '100%',
         features: {
             continue:    false
         },
         on: function(e) {
-            if (e.name == window.webtor.TORRENT_FETCHED) {
+            if (e.name === window.webtor.TORRENT_FETCHED) {
                 for (const f of e.data.files) {
                     console.log(f.name)
                     if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
@@ -49,16 +43,14 @@ export default function Detail(props)  {
                     if (!f.name.endsWith('.mkv')) continue;
                 }
             }
-            if (e.name == window.webtor.TORRENT_ERROR) {
+            if (e.name === window.webtor.TORRENT_ERROR) {
                 console.log('Torrent error!')
             }
-            if (e.name == window.webtor.INITED) {
-                var p = e.player;
+            if (e.name === window.webtor.INITED) {
             }
-            if (e.name == window.webtor.OPEN) {
-                // console.log(e.data);
+            if (e.name === window.webtor.OPEN) {
             }
-            if (e.name == window.webtor.OPEN_SUBTITLES) {
+            if (e.name === window.webtor.OPEN_SUBTITLES) {
                 console.log(e.data);
             }
         },
@@ -77,7 +69,7 @@ export default function Detail(props)  {
             continue:    false
         },
         on: function(e) {
-            if (e.name == window.webtor.TORRENT_FETCHED) {
+            if (e.name === window.webtor.TORRENT_FETCHED) {
                 console.log('Torrent fetched!', e.data.files);
                 for (const f of e.data.files) {
                     if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
@@ -86,16 +78,15 @@ export default function Detail(props)  {
                     if (!f.name.endsWith('.mp4')) continue;
                 }
             }
-            if (e.name == window.webtor.TORRENT_ERROR) {
+            if (e.name === window.webtor.TORRENT_ERROR) {
                 console.log('Torrent error!')
             }
-            if (e.name == window.webtor.INITED) {
-                var p = e.player;
+            if (e.name === window.webtor.INITED) {
             }
-            if (e.name == window.webtor.OPEN) {
+            if (e.name === window.webtor.OPEN) {
                 console.log(e.data);
             }
-            if (e.name == window.webtor.OPEN_SUBTITLES) {
+            if (e.name === window.webtor.OPEN_SUBTITLES) {
                 console.log(e.data);
             }
         },
@@ -116,6 +107,7 @@ export default function Detail(props)  {
   useEffect(() => {
     getByUrl(history.location.pathname.replace("/",""))
     watchAd(history)
+    // eslint-disable-next-line
   },[])
 
   async function watchAd(){
@@ -126,28 +118,30 @@ export default function Detail(props)  {
     var iframe = [...document.getElementsByTagName("iframe")]
     var scripts = [...document.getElementsByTagName("script")]
 
-    scripts?.map(scr => {
+    const resScript = scripts?.map(scr => {
         if(scr.src.includes("p412601")){
             scr.remove()
         }
+        return 'ok';
     })
-    iframe?.map((ifr,index) => {
+    console.log(resScript);
+    const resFrame = iframe?.map((ifr,index) => {
         if(index > 0)
             ifr.remove();
-        if(index == 0){
+        if(index === 0){
             setIframe(ifr)
         }
+        return 'ok';
     })
+    console.log(resFrame);
     }, 1000)
   }
 
-  
  function onWatch(){
         setVVisibility(true)
         if(hasClcik)
             setSkipAnounce(true);
   }
-
 
   return (<div className="detail-bg">
                 <button className="back-button" onClick={() => history.push("/")}>⮢</button>
@@ -212,8 +206,6 @@ export default function Detail(props)  {
                 </div>
                 
                 : ""}
-
-
         </div>
   )
 }
