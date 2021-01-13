@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { BrowserRouter, Route, Switch} from "react-router-dom";
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import "./App.css";
-import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Api from './util/Api'
-
+import MyRoutes from './components/MyRoutes'
 
 export default function App() {
   var [routes, setRoutes] = useState<Route[]>([]);
@@ -21,6 +20,7 @@ export default function App() {
    })
  };
 
+
   useEffect(() => {
    urls();
    // eslint-disable-next-line
@@ -30,10 +30,8 @@ export default function App() {
     <Switch>
       {/* Home access! */}
       <Route exact path="/" component={Home} />
-      {routes?.map(route => {
-        return <Route exact path={`/${route.url}`} component={Detail} />
-      })}
-      <Route path="*" component={Home} />
+      <MyRoutes />
+      {/* <Route path="*" component={Home} /> */}
     </Switch>
   </BrowserRouter>
   )}

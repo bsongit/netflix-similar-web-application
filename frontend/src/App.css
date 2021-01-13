@@ -771,7 +771,7 @@ label{
     color: var(--beson-shadow-lv2);
   }
   .content-detail .title{
-    margin-top: 3em;
+    margin-top: 6em;
     color: #d1324d;
     font-weight: bold;
     max-width: 100%;

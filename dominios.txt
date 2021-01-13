@@ -6,12 +6,20 @@ email : overcore@prontonmail.com
 senha : Tw9rSWZ4eG0p
 
 
+cd ../movies-download/frontend/
 git stash save --keep-index --include-untracked
 git pull origin master
-thebesonic
-#Beson1991
 npm run build
 mv build /var/www
 cd /var/www
 rm -r html
 mv build html
+
+
+
+
+
+
+torrents quebrados
+SMALLVILLE AS AVENTURAS DO SUPERBOY 10ª TEMPORADA COMPLETA TORRENT DUBLADA
+anime do full metal
