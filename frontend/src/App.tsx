@@ -33,6 +33,7 @@ export default function App() {
       {routes?.map(route => {
         return <Route exact path={`/${route.url}`} component={Detail} />
       })}
+      <Route component={Home} />
     </Switch>
   </BrowserRouter>
   )}

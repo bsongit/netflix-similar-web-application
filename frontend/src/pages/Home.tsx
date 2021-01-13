@@ -91,9 +91,11 @@ export default function Home(props : Props)  {
   },[skipNumber, category, genere]);
 
   function selectMovie(url : string){
+    if(url != 'undefined'){
     setLoad(true);
     loading();
     setTimeout(() => history.push(url),800)
+    }
   }
 
 
@@ -108,7 +110,7 @@ export default function Home(props : Props)  {
                 })}
               </Carrossel>
           : <div className="primary-movie">
-              <img  src={primaryMovie?.urlImg} alt={primaryMovie?.name}/>
+              <img  src={primaryMovie?.urlImg} alt={primaryMovie?.name} onClick={() => selectMovie(primaryMovie? primaryMovie?.url : "")}/>
             </div>
           }
             {isArrive? 
