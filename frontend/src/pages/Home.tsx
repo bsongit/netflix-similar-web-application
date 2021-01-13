@@ -110,18 +110,21 @@ export default function Home(props : Props)  {
           }
 
           <Pager>
+            <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos de 2021</h1>
             <div className="row-pager">
              <span className="hide-pc">........................................................</span>
             {movies?.slice(0,5).map((movie : Movie) => {
               return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
             })}
             </div>
+            <h2 className="text-shadow-light-blue ml-1">Series online de 2021</h2>
             <div className="row-pager">
             <span className="hide-pc">........................................................</span>
             {movies?.slice(5,10).map((movie : Movie) => {
               return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
             })}
             </div>
+            <h2 className="text-shadow-light-blue ml-1">Os 5 filmes mais assistidos de 2021</h2>
             <div className="row-pager">
             <span className="hide-pc">........................................................</span>
             {movies?.slice(10,15).map((movie : Movie) => {

@@ -167,7 +167,7 @@ export default function Detail(props)  {
                 <div className={"content-detail"}>
                     <div className="border-center">
                         <div className="title">
-                            <span >{movie?.name.toUpperCase()}</span>
+                            <h1 >{movie?.name.toUpperCase()}</h1>
                         </div>
                         <div className="studio">
                             <span>({movie?.studio})</span>
@@ -188,7 +188,7 @@ export default function Detail(props)  {
                             <span>Nota: {movie?.imdb}</span>
                         </div>
                         <div className="text-shadow-light-blue">
-                            <span>Sinopse: {movie?.synopsis}</span>
+                            <p>Sinopse: {movie?.synopsis}</p>
                         </div>
                         <div className={movie?.category === "filme"? 'mt-2' : 'collapsed'}>
                             <button onClick={() => onWatch() }>ASSISTIR</button>
