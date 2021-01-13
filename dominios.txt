@@ -4,3 +4,14 @@ temporadas-online.net
 
 email : overcore@prontonmail.com
 senha : Tw9rSWZ4eG0p
+
+
+git stash save --keep-index --include-untracked
+git pull origin master
+thebesonic
+#Beson1991
+npm run build
+mv build /var/www
+cd /var/www
+rm -r html
+mv build html
