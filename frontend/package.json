@@ -22,6 +22,7 @@
     "start": "set PORT=80 && react-scripts start",
     "go": "react-scripts start",
     "build": "react-scripts build",
+    "serve": "set PORT=80 &&  serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
