@@ -238,7 +238,8 @@ class WebtorGenerator {
       };
     }
 
-    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; fullscreen; picture-in-picture';
+    // iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; fullscreen; picture-in-picture';
+    iframe.allow = 'accelerometer; encrypted-media; gyroscope; fullscreen; picture-in-picture';
     el.appendChild(iframe);
     iframe.src = url;
     const self = this;
