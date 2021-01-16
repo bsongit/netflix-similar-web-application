@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
+import ChooseUrl from '../components/ChooseUrl';
 import Cover from '../components/Cover';
 import Footer from '../components/Footer';
 import LoadComponent from '../components/LoadComponent';
@@ -14,8 +15,12 @@ type Props = {}
 interface Movie {
   name: string,
   urlImg: string,
+  urlImg2: string,
+  urlImg3: string,
   data: Date,
   url: string,
+  url1: string,
+  url2: string,
   imdb: string,
   release: string,
   synopsis: string
@@ -25,6 +30,8 @@ interface Movie {
 export default function Home(props : Props)  {
 
   const [movies, setMovies] = useState<Array<Movie>>([]);
+  const [selectedMovie, setSelectedMovie] = useState<Movie>();
+  const [windowChosseUrl, setWindowChosseUrl] = useState<boolean>(false);
   const [primaryMovie, setPrimaryMovie] = useState<Movie>();
   const [load, setLoad] = useState<boolean>(false);
   const [moviesCarrossel, setMoviesCarrossel] = useState<Array<Movie>>([]);
@@ -98,46 +105,65 @@ export default function Home(props : Props)  {
     }
   }
 
+  function chooseUrl(movie : Movie){
+    setWindowChosseUrl(true);
+    setSelectedMovie(movie);
+  }
+
+  function getBestImg(movie : Movie){
+    if(movie?.urlImg3){
+      return movie.urlImg3;
+    }
+    else if(movie?.urlImg2){
+      return movie.urlImg2;
+    }
+    else{
+      return movie?.urlImg;
+    }
+  }
+
 
   return (
       <div className="container">
+        {windowChosseUrl && selectedMovie? <ChooseUrl contexWindowModal={[windowChosseUrl,setWindowChosseUrl]} movieContext={selectedMovie} selectMovie={selectMovie}/> : "" }
+        
           {load? <LoadComponent></LoadComponent> : ""}
-          <Navbar contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
+          <Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
           {window.innerWidth > 400? 
                 <Carrossel>
                 {moviesCarrossel?.map((movie : Movie) => {
-                  return <Cover seeImdb={false} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                  return <Cover seeImdb={false} movie={movie} onClick={() => chooseUrl(movie)}/>;
                 })}
               </Carrossel>
-          : <div className="primary-movie">
-              <img  src={primaryMovie?.urlImg} alt={primaryMovie?.name} onClick={() => selectMovie(primaryMovie? primaryMovie?.url : "")}/>
+          : <div className="primary-movie" >
+              <img  src={getBestImg(moviesCarrossel[1])} alt={primaryMovie?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
             </div>
           }
             {isArrive? 
                   <Pager>
-                      <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos de 2020</h1>
+                      <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos em 2020</h1>
                       <div className="row-pager">
                        <span className="hide-pc">........................................................</span>
                       {movies?.slice(0,5).map((movie : Movie) => {
-                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
+                        return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)} />;
                       })}
                       </div>
-                      <h2 className="text-shadow-light-blue ml-1">Series online de 2020</h2>
+                      <h2 className="text-shadow-light-blue ml-1">Series online em 2020</h2>
                       <div className="row-pager">
                       <span className="hide-pc">........................................................</span>
                       {movies?.slice(5,10).map((movie : Movie) => {
-                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                        return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                       })}
                       </div>
                       
-                      <h2 className={"text-shadow-light-blue ml-1"}>Os 5 filmes mais assistidos de 2020</h2>
+                      <h2 className={"text-shadow-light-blue ml-1"}>Os 5 filmes mais assistidos em 2020</h2>
                     
                       <div className="row-pager">
                       <span className="hide-pc">........................................................</span>
                       
                       {
                       movies?.slice(10,15).map((movie : Movie) => {
-                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                        return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                       })}
                       </div>
 
@@ -147,7 +173,7 @@ export default function Home(props : Props)  {
                       
                       {
                       movies?.slice(15,20).map((movie : Movie) => {
-                        return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                        return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                       })
                       }
                       </div>
@@ -169,20 +195,20 @@ export default function Home(props : Props)  {
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
                 {movies?.slice(20,25).map((movie : Movie) => {
-                  return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)} />;
+                  return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)} />;
                 })}
                 </div>
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
                 {movies?.slice(25,30).map((movie : Movie) => {
-                  return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                  return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                 })}
                 </div>
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
                 { 
                 movies?.slice(30,35).map((movie : Movie) => {
-                  return <Cover seeImdb={true} movie={movie} onClick={() => selectMovie(movie.url)}/>;
+                  return <Cover seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                 })
                 }
                 </div>

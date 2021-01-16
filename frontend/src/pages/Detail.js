@@ -36,7 +36,6 @@ export default function Detail(props)  {
         on: function(e) {
             if (e.name === window.webtor.TORRENT_FETCHED) {
                 for (const f of e.data.files) {
-                    console.log(f.name)
                     if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
                         setHasClick(true);
                     }
@@ -51,7 +50,6 @@ export default function Detail(props)  {
             if (e.name === window.webtor.OPEN) {
             }
             if (e.name === window.webtor.OPEN_SUBTITLES) {
-                console.log(e.data);
             }
         },
     });
@@ -70,7 +68,6 @@ export default function Detail(props)  {
         },
         on: function(e) {
             if (e.name === window.webtor.TORRENT_FETCHED) {
-                console.log('Torrent fetched!', e.data.files);
                 for (const f of e.data.files) {
                     if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
                         setHasClick(true);
@@ -84,10 +81,8 @@ export default function Detail(props)  {
             if (e.name === window.webtor.INITED) {
             }
             if (e.name === window.webtor.OPEN) {
-                console.log(e.data);
             }
             if (e.name === window.webtor.OPEN_SUBTITLES) {
-                console.log(e.data);
             }
         },
     });
@@ -119,37 +114,45 @@ export default function Detail(props)  {
     var iframe = [...document.getElementsByTagName("iframe")]
     var scripts = [...document.getElementsByTagName("script")]
 
-    const resScript = scripts?.map(scr => {
+    scripts?.map(scr => {
         if(scr.src.includes("p412601")){
             scr.remove()
         }
-        return 'ok';
     })
-    console.log(resScript);
-    const resFrame = iframe?.map((ifr,index) => {
-        if(index > 0)
-            ifr.remove();
-        if(index === 0){
-            setIframe(ifr)
-        }
-        return 'ok';
+
+    iframe?.map((ifr,index) => {
+
+            console.log(ifr)
+
     })
-    console.log(resFrame);
     }, 1000)
   }
 
  function onWatch(){
         setVVisibility(true)
-        if(hasClcik)
+        if(hasClcik){
             setSkipAnounce(true);
+        }
   }
 
+  function getBestImg(movie){
+    if(movie?.urlImg3){
+      return movie.urlImg3;
+    }
+    else if(movie?.urlImg2){
+      return movie.urlImg2;
+    }
+    else{
+      return movie?.urlImg;
+    }
+  }
 
   return (<div className="detail-bg">
                 <button className="back-button" onClick={() => history.push("/")}>{window.innerWidth < 400? 'VOLTAR' : "⮢"}</button>
-                <div className="align-end mt-2">
-                <select className={(vVisibility && movie?.category === "serie") ? 'select-series' : 'collapsed'} onChange={handleChange2} >
-                            <option  default>Selecionar um epsódio</option>
+                <div className="row">
+                <div className="select-series">
+                <select className={(vVisibility && movie?.category === "serie") ? '' : 'collapsed'} onChange={handleChange2} >
+                            <option  default>Selecionar outro epsódio</option>
                         {movie?.eps.map(ep => {
                             return (
                                 <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
@@ -157,12 +160,15 @@ export default function Detail(props)  {
                         })}
                         </select>
                 </div>
-                <div className={vVisibility? "show" : "collapsed"} id="player"></div>
+                </div>
+                <div className="parent-player">
+                    <div className={vVisibility? "visibility-show" : ""} id="player"></div>
+                </div>
                 <div className="row">
                     <div className={skipAnounce? "skip-anounce" : "collapsed"}>Pause o anúncio ou clique em Next para pular:</div>
                 </div>
                 <div className={skipAnounce? "skip-invisible" : "collapsed"} onClick={() => setSkipAnounce(false)}></div>
-                <img  className={!vVisibility? "img-resume" : "collapsed"} src={movie?.urlImg} alt={movie?.name}></img>
+                <img  className={!vVisibility? "img-resume" : "collapsed"} src={getBestImg(movie)} alt={movie?.name}></img>
                 {!vVisibility?
                 <div className={"content-detail"}>
                     <div className="border-center">

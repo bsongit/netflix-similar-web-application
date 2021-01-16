@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import "./App.css";
+import MyRoutes from './components/MyRoutes';
 import Home from './pages/Home';
-import Detail from './pages/Detail';
 import Api from './util/Api'
 
 export default function App() {
   var [routes, setRoutes] = useState<Route[]>([]);
   interface Route {
+
     _id : string,
-    url : string
+    url : string,
+    url1: string
   }
 
   const urls = async function() {
@@ -30,10 +32,9 @@ export default function App() {
     <Switch>
       {/* Home access! */}
       <Route exact path="/" component={Home} />
-     { routes?.map(route => {
-      return <Route exact path={`/${route.url}`} component={Detail}/>
-       })}
-      {/* <Route path="*" component={Home} /> */}
+      <MyRoutes></MyRoutes>
+
+      {/* <Route path="*" component={'Página desconhecida'} /> */}
     </Switch>
   </BrowserRouter>
   )}

@@ -9,6 +9,7 @@ type Props = {
   contextSidebar : [string, React.Dispatch<React.SetStateAction<string>>];
   contextLoad : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   contextArrive : [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  chooseUrlFunc : Function;
 }
 
 interface Movie {
@@ -71,7 +72,7 @@ export default function Navbar(props : Props)  {
     <div className="navbar" onClick={() => setMovieSearched([])}>
     <div className={searchWord.length > 0? "search-box" : "collapsed"} >
           {moviesSearched?.map((movie : Movie) => {
-              return <div className="search-row" onClick={() => selectMovie(movie.url)}>
+              return <div className="search-row" onClick={() => props.chooseUrlFunc(movie)}>
                 <span>{movie.name}</span>
                 <img alt={movie.name} src={movie.urlImg}></img>
                 </div>

@@ -193,7 +193,6 @@ class WebtorGenerator {
     const id = Object(_uuid__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])();
     const elId = `webtor-${id}`;
     const dd = Object.assign({}, defaults, data);
-    console.log(dd)
     const el = document.getElementById(dd.id);
     if (!el) throw `Failed to find element with id "${dd.id}"`;
 

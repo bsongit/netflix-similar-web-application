@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 });
 router.get("/all-url", async (req, res) => {
   try {
-    const response = await Movies.find().select(['url']);
+    const response = await Movies.find().select(['url','url1','url2']);
     res.json(response);
   } catch (error) {
     res.json(error);
@@ -34,20 +34,6 @@ router.get("/just-series", async (req, res) => {
     res.json(error);
   }
 });
-
-// router.post("/get15", async (req, res) => {
-//   try {
-//     var response =  [];
-//     {req.body.category !== ""?
-//       response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
-//       : 
-//       response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
-//     }
-//     res.send(response);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
 
 router.post("/get15", async (req, res) => {
   try {
@@ -116,6 +102,15 @@ router.post("/get-by-url", async (req, res) => {
   }
 });
 
+router.post("/get-by-url-one", async (req, res) => {
+  try {
+    const response = await Movies.findOne({url1: req.body.url1});
+    res.send(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 router.post("/create", async (req, res) => {
   try {
     const response = await Movies.create({name: req.body.name, urlImg: req.body.urlImg});
@@ -140,7 +135,7 @@ router.post("/delete", async (req, res) => {
 
 router.post("/set-categories", async (req, res) => {
   try {
-    const items = await Movies.updateMany({name : { $regex : new RegExp("Temporada", "i")}}, {category: "serie"});
+    const items = await Movies.updateMany({title : { $regex : new RegExp("", "i")}}, {category: "filme"});
     res.send(items);
   } catch (error) {
     res.send(error);
@@ -155,17 +150,32 @@ router.post("/update-one", async (req, res) => {
   }
 });
 
-router.post("/delete-duplicated", async (req, res) => {
+router.post("/update-one-by-name", async (req, res) => {
   try {
-    const movies = await Movies.find({name : req.body.name});
-    var removed = null;
-    if(movies.length > 1){
-      removed = await Movies.deleteOne({_id: movies[0]._id});
-    }
-    res.send(removed)
+    const item = await Movies.updateOne({name : { $regex : new RegExp(req.body.title, "i")}}, {...req.body});
+    res.send(item)
+    // if(item.n == 1){
+    //   res.send('ok');
+    // }
+    // else{
+    //   // const item2 = await Movies.create({...req.body});
+    //   res.send('ok2')
+    // }
   } catch (error) {
     res.send(error);
   }
 });
+
+
+router.post("/update-one-by-title", async (req, res) => {
+  try {
+    const item = await Movies.updateOne({title : req.body.title}, {...req.body});
+    res.send({id : req.body._id, item : item});
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
 
 module.exports = router;

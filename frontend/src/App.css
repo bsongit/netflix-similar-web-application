@@ -11,7 +11,7 @@
   --beson-shadow-lv2: #adc5ca;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+/* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
   html {
     transform: rotate(-90deg);
     transform-origin: left top;
@@ -21,6 +21,23 @@
     top: 100%;
     left: 0;
   }
+} */
+
+.carrossel .cover{
+  box-shadow: none;
+  border: none;
+  margin-left: 0;;
+}
+.carrossel .cover img{
+  margin-left: 0;;
+}
+.carrossel .cover:hover{
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+}
+.carrossel img:hover{
+  box-shadow: 0px 0px 24px;
 }
 
 body{
@@ -28,6 +45,44 @@ body{
   font-family: 'Titillium Web', sans-serif;
   background-color: black !important;
 }
+
+.modal{
+  z-index: 6000;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  color: #d1ac32;
+  font-weight: bold;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0,0.7);
+  align-items: center;
+  justify-content: center;
+}
+.choose-url{
+  z-index: 5000;
+  border-radius: 12px;
+  min-width: 40em;
+  min-height: 15em;
+  /* background-color: black; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+.choose-url button{
+  border-radius: 12px;
+  min-width: 32%;
+  max-width: 32%;
+  min-height: 4em !important;
+  max-height: 60%;
+  box-shadow: 0px 0px 12px black;
+}
+/* .choose-url button:hover{
+  background-color: var(--shadow-dark-blue);
+} */
+
+
 .text-yellow{
   color: var(--beson-yellow);
 }
@@ -39,6 +94,9 @@ body{
 }
 .bg-red{
   background-color: var(--beson-red);
+}
+.bg-gray{
+  background-color: gray;
 }
 .text-green{
   color: var(--beson-green);
@@ -106,6 +164,9 @@ body{
 }
 .ml-1{
   margin-left: 1em !important; 
+}
+.mr-1{
+  margin-right: 1em !important; 
 }
 .mt-05{
   margin-top: 0.5em !important; 
@@ -223,8 +284,9 @@ select:hover{
   height: 3em;
   width: 100%;
   background-color: var(--dark-blue);
-  justify-content: space-between;
+  justify-content: center;
   display: flex;
+  font-size: 8px !important;
   /* box-shadow: 12px 12px 12px; */
   color: var(--beson-shadow-lv2);
 }
@@ -266,12 +328,13 @@ label{
 
 }
 .cover{
-  margin-left: 1em;
+  margin-left: -1em;
   width: 12em;
   min-width: 12em;
   min-height: 16em;
   height: 16em;
   border: 1px solid rgb(43, 43, 43);
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -284,21 +347,22 @@ label{
   cursor: pointer;
 }
 .cover span{
-  position: absolute;
+  position: static;
   color: #32d174;
   font-weight: bold;
   background-color: rgba(27, 27, 27,0.6);
   padding-left: 2px;
   padding-right: 2px;
   border-radius: 2px;
-  margin-left: -7em;
+  margin-left: -10em;
   margin-top: -14em;
   box-shadow: 0px 0px 12px black;
-  z-index: 0;;
 }
 .cover img{
   width: 80%;
   height: 90%;
+  margin-left: -5.5em;
+  border-radius: 8px;
 }
 .pager{
   width: 100%;
@@ -310,11 +374,15 @@ label{
   margin-top: 1em;
   margin-right: 1em;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+.row-pager .cover{
+  margin-left: 1em;
 }
 .pager-bt{
-  max-width: 25%;
+  max-width: 100%;
   display: flex;
+  justify-content: center;
 }
 .pager-bt button{
   margin-left: 1em;
@@ -368,15 +436,45 @@ label{
   height: 100%;
 }
 
-#player {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 80%;
-  width: 100%;
+.visibility-show{
+  visibility: visible !important;
 }
-#player iframe{
-  height: 100vh;
+
+.parent-player{
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+#player {
+  position: relative;
+  margin-top: 7em;
+  height: 10vh;
+  min-width: 70%;
+  max-width: 70%;
+  min-height: 70%;
+  max-height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.video2{
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+.video2 video{
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
 }
 #controls {
   padding: 1rem;
@@ -400,10 +498,14 @@ label{
   min-height: 100vh;
 }
 .img-resume{
-  position: relative;
-  min-width: 100vw;
-  max-height: 100vh;
-  -webkit-filter: grayscale(70%) brightness(20%) blur(5px)  ;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  -webkit-filter: grayscale(70%) brightness(20%) blur(5px);
 }
 .content-detail{
   position: absolute;
@@ -460,7 +562,8 @@ label{
   justify-content: center;
   padding: 5px;
   font-size: 0.8em;
-  margin-top: 15em;
+  margin-top: 0em;
+  margin-left: -37em;
   border-radius: 6px;
   z-index: 3;
   animation: fadeIn ease 1s;
@@ -558,7 +661,7 @@ label{
   z-index: 5000;
   float: inline-start;
   top: 2em;
-  width: 2em;
+  width: 1em;
   height: 1em;
   /* border: 1px solid gray; */
   display: flex;
@@ -570,18 +673,23 @@ label{
   color: white;
   background-color: var(--shadow-dark-blue);
   font-weight: bold;
-  width: 10em;
-  margin-right: 3em;
+  width: 100%;
+  max-width: 50%;
+  margin-top: 80vh;
+  display: flex;
+  justify-items: flex-end;
+  align-items: flex-end;
+  justify-content: flex-end;
+
 }
+
 .align-end{
   position: fixed;
   left: 0;
   top: 0;
   z-index: 6000;
   width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+
 }
 .search-row{
   background-color: black;
@@ -609,8 +717,11 @@ label{
   justify-content: center;
   align-items: center;
   background-color: rgb(7, 7, 7);
+  position: relative;
+  /* z-index: -1; */
 }
 .primary-movie img{
+  z-index: 0;
   min-width: 55%;
   max-height: 85%;
   border-radius: 6px;
@@ -645,7 +756,7 @@ label{
     margin-top: 1em; 
   }
   .row-pager  .cover{
-    margin-left: 0px;
+    margin-left: 0;
     width: 7em;
     min-width: 7em;
     min-height: 10em;
@@ -714,6 +825,9 @@ label{
     overflow: scroll;
   }
   .pager-buttons{
+    display: flex;
+    justify-content: center;
+    min-width: 100%;
     max-width: 100%;
   }
   .pager-bt button{
@@ -802,7 +916,27 @@ label{
     margin-left: 1.6em;
     font-size: 1.3em;
   }
+  .choose-url{
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  #player{
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 40%;
+    max-height: 40%;
+  }
+  #player iframe{
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+  }
   
+  .cover img{
+    margin-left: 0;
+  }
 
 }
 
