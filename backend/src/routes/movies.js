@@ -150,17 +150,23 @@ router.post("/update-one", async (req, res) => {
   }
 });
 
+router.post("/update-id", async (req, res) => {
+  try {
+    const item = await Movies.updateMany({category : 'serie'}, {$unset: {title : '', urlImg3: ''}});
+    // const item = await Movies.findOne({_id : '5fe8e2bc69322e22d076be51'});
+    res.send(item);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+{/* <video  controls playsinline  id='player' type='video/mp4' src=' */}
+// '  ></video>
+
 router.post("/update-one-by-name", async (req, res) => {
   try {
     const item = await Movies.updateOne({name : { $regex : new RegExp(req.body.title, "i")}}, {...req.body});
     res.send(item)
-    // if(item.n == 1){
-    //   res.send('ok');
-    // }
-    // else{
-    //   // const item2 = await Movies.create({...req.body});
-    //   res.send('ok2')
-    // }
   } catch (error) {
     res.send(error);
   }
@@ -174,6 +180,14 @@ router.post("/update-one-by-title", async (req, res) => {
   } catch (error) {
     res.send(error);
   }
+});
+
+router.post("/get-player-video", async (req, res) => {
+
+  var items = await Movies.find({playerVideo2 : { $regex : new RegExp('option_1.php', "i")}});
+  res.send(items);
+
+
 });
 
 

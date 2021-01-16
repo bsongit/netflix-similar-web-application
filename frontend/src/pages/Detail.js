@@ -107,24 +107,19 @@ export default function Detail(props)  {
   },[])
 
   async function watchAd(){
+ var end = 0;
   var interval = setInterval(function () {
-        if(history.location.pathname === "/" || history.location.pathname === "localhost:3000"){
+        if(end >= 10 || history.location.pathname === "/" || history.location.pathname === "localhost:3000"){
             clearInterval(interval)
         }
-    var iframe = [...document.getElementsByTagName("iframe")]
     var scripts = [...document.getElementsByTagName("script")]
-
     scripts?.map(scr => {
         if(scr.src.includes("p412601")){
             scr.remove()
         }
     })
+    end++;
 
-    iframe?.map((ifr,index) => {
-
-            console.log(ifr)
-
-    })
     }, 1000)
   }
 
@@ -171,7 +166,8 @@ export default function Detail(props)  {
                 <img  className={!vVisibility? "img-resume" : "collapsed"} src={getBestImg(movie)} alt={movie?.name}></img>
                 {!vVisibility?
                 <div className={"content-detail"}>
-                    <div className="border-center">
+                    <div className="border-center row d-flex">
+                    <div className="content-item">
                         <div className="title">
                             <h1 >{movie?.name.toUpperCase()}</h1>
                         </div>
@@ -196,6 +192,7 @@ export default function Detail(props)  {
                         <div className="text-shadow-light-blue">
                             <p>Sinopse: {movie?.synopsis}</p>
                         </div>
+
                         <div className={movie?.category === "filme"? 'mt-2' : 'collapsed'}>
                             <button onClick={() => onWatch() }>ASSISTIR</button>
                         </div>
@@ -209,7 +206,12 @@ export default function Detail(props)  {
                         })}
                         </select>
                         </div>
+                        </div>
+                        <div className="hide-mobile  picture-item">
+                            <img src={getBestImg(movie)} alt={movie?.name}></img>
+                        </div>
                     </div>
+
 
                 </div>
                 
