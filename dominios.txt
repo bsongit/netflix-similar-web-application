@@ -12,8 +12,6 @@ senha : Tw9rSWZ4eG0p
 cd ../movies-download/frontend/
 git stash save --keep-index --include-untracked
 git pull origin master
-
-npm run build
 mv build /var/www
 cd /var/www
 rm -r html

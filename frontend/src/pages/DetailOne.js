@@ -14,12 +14,10 @@ export default function DetailOne(props)  {
       console.error(error)
     })
   }
-
-
   useEffect(() => {
     window.scrollTo(0, 0);
+    
     getByUrlOne(history.location.pathname.replace("/",""))
-    console.log(history.location.pathname.replace("/",""))
     // eslint-disable-next-line
   },[])
 
@@ -122,8 +120,6 @@ function closeFullscreen() {
                          <img src={getBestImg(movie)} alt={movie?.name}></img>
                      </div>
                  </div>
-
-
              </div>
                 
                 : ""}

@@ -142,6 +142,7 @@ export default function Detail(props)  {
     }
   }
 
+
   return (<div className="detail-bg">
                 <button className="back-button" onClick={() => history.push("/")}>{window.innerWidth < 400? 'VOLTAR' : "⮢"}</button>
                 <div className="row">

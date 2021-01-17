@@ -17,7 +17,6 @@ export default function Sidebar(props : Props)  {
     setTimeout(() => setLoad(false),1000)
   }
   function selectGenere(g : string, exp: boolean){
-    console.log(genere+isExpanded+load);
     setGenere(g);
     setExpanded(exp);
     setLoad(true);
