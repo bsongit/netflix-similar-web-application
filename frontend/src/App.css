@@ -568,6 +568,7 @@ label{
   min-height: 100%;
   max-height: 100%;
   margin-left: 1.8em;
+  margin-top: 4em;
   border: none;
   /* border-radius: 6px; */
   box-shadow: 0px 0px 12px black;
@@ -792,6 +793,19 @@ label{
   display: none;
 }
 
+.comments{
+  background-color: whitesmoke;
+  /* color: white; */
+  display: flex;
+  justify-content: center;
+  margin-top: 40em;
+  z-index: 6000;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
 @media only screen and (max-width: 600px) {
 
   .hide-pc{
@@ -936,6 +950,7 @@ label{
     min-height: 100%;
     max-height: 100%;
     margin-left: 0px;
+    margin-top: 0;
     border: 0px solid rgb(73, 72, 72);
     border-radius: 6px;
     box-shadow: 0px 0px 0px black;
@@ -944,6 +959,7 @@ label{
     flex-direction: column;
     font-size: 1em;
     color: var(--beson-shadow-lv2);
+  
   }
   .content-detail .title{
     margin-top: 6em;

@@ -123,6 +123,11 @@ function closeFullscreen() {
              </div>
                 
                 : ""}
+
+                
+            <div className="comments">
+                    <div className="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="500" data-numposts="5"></div>
+            </div>
         </div>
   )
 }
