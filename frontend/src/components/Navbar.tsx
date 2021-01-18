@@ -1,5 +1,4 @@
-import React, {ChangeEvent, useState, useEffect} from 'react';
-import { useHistory } from "react-router-dom";
+import React, {ChangeEvent, useState} from 'react';
 import Api from '../util/Api';
 import Sidebar from './Sidebar';
 import Logo from '../imgs/logo.png'
@@ -25,7 +24,6 @@ export default function Navbar(props : Props)  {
   const [searcBar, setSearcBar] = useState(false);
   const [moviesSearched, setMovieSearched] = useState<Array<Movie>>([]);
   const [category, setCategory] = props.context;
-  let history = useHistory();
   const [load, setLoad] = props.contextLoad;
   const [isArrive, setArrive] = props.contextArrive;
 
@@ -36,6 +34,7 @@ export default function Navbar(props : Props)  {
     })
     .catch((error: any) => {
       console.log(error);
+      console.log(load, isArrive);
     });
   };
 
@@ -60,13 +59,6 @@ export default function Navbar(props : Props)  {
     loading();
     window.scrollTo(0, 0);
   }
-
-  function selectMovie(url : string){
-    setLoad(true);
-    loading();
-    setTimeout(() => history.push(url),800)
-  }
-
 
   return (<div className={"box-shadow mobile-nav"}>
     <div className="navbar" onClick={() => setMovieSearched([])}>

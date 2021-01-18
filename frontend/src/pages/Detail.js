@@ -102,6 +102,7 @@ export default function Detail(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
     getByUrl(history.location.pathname.replace("/",""))
+    setIframe(document.getElementsByTagName('iframe')[0]);
     watchAd(history)
     // eslint-disable-next-line
   },[])
@@ -192,6 +193,10 @@ export default function Detail(props)  {
                         </div>
                         <div className="text-shadow-light-blue">
                             <p>Sinopse: {movie?.synopsis}</p>
+                        </div>
+
+                        <div className="bg-dark-blue text-yellow">
+                            <p><bold>Atenção : O magnet player pode demorar um pouco para baixar seu filme. Isso sempre depende do horário e quantidade de 'peers || seeders'.</bold></p>
                         </div>
 
                         <div className={movie?.category === "filme"? 'mt-2' : 'collapsed'}>

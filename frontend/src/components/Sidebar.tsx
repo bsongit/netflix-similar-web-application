@@ -22,6 +22,7 @@ export default function Sidebar(props : Props)  {
     setLoad(true);
     loading();
     window.scrollTo(0, 0);
+    console.log(genere + isExpanded + load + isArrive);
   }
   return (
     <div className="sidebar">

@@ -14,6 +14,7 @@ type Props = {
   movie : Movie;
   onClick : Function;
   seeImdb : boolean;
+  isImgLow : boolean;
 }
 
 
@@ -21,10 +22,10 @@ export default function Cover(props : Props)  {
   const [synopsisVisibility, setSVisibility] = useState<boolean>(false);
   
   function getBestImg(movie : Movie){
-    if(movie.urlImg3){
+    if(movie.urlImg3 && !props.isImgLow){
       return movie.urlImg3;
     }
-    else if(movie.urlImg2){
+    else if(movie.urlImg2 && !props.isImgLow){
       return movie.urlImg2;
     }
     else{

@@ -39,7 +39,6 @@ export default function DetailOne(props)  {
   }
 
   function setGetBack(){
-    // closeFullscreen()
     history.push("/")
   }
 
@@ -56,18 +55,6 @@ function openFullscreen() {
     elem.msRequestFullscreen();
   }
 }
-
-/* Close fullscreen */
-function closeFullscreen() {
-  if (window.document.exitFullscreen) {
-    window.document.exitFullscreen();
-  } else if (window.document.webkitExitFullscreen) { /* Safari */
-    window.document.webkitExitFullscreen();
-  } else if (window.document.msExitFullscreen) { /* IE11 */
-    window.document.msExitFullscreen();
-  }
-}
-
 
   return (<div className="detail-bg">
                 <button className="back-button" onClick={() => setGetBack()}>{window.innerWidth < 400? 'VOLTAR' : "⮢"}</button>
@@ -123,8 +110,6 @@ function closeFullscreen() {
              </div>
                 
                 : ""}
-
-                
             <div className="comments">
                     <div className="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="500" data-numposts="5"></div>
             </div>
