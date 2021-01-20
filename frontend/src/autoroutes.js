@@ -10,25 +10,30 @@ const urls = async function() {
  };
 
 function routeGenerator(routes) {
-    var contentFile = "import React from 'react'; \n";
-    contentFile += "import {Route, Switch} from 'react-router-dom';\n";
-    contentFile += "import Detail from '../pages/Detail';\n";
-    contentFile += "import DetailOne from '../pages/DetailOne';\n";
-    contentFile += "type Props = {}\n";
-    contentFile += "export default function MyRoutes(props: Props) { \n return (";
-    contentFile += "<Switch>\n";
+    var contentFile = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"> \n`;
+    contentFile += `<link type="text/css" id="dark-mode" rel="stylesheet" href=""/>\n`;
+    contentFile += `<style type="text/css" id="dark-mode-custom-style"/>\n`;
+    contentFile +=  `<url>\n`;
+    contentFile +=  `<loc>http://filmes-temporadas-online.ml/</loc>\n`;
+    contentFile += `<lastmod>2021-01-20T15:59:52+00:00</lastmod>\n` ;
+    contentFile += `</url>\n` ;
     routes?.map(route => {
-      contentFile += route.url? `<Route exact path={'/${route.url}'} component={Detail}/>\n` : ''
-      contentFile += route.url1? `<Route exact path={'/${route.url1}'} component={DetailOne}/>\n` : ''
+      contentFile += route.url? `<url>\n` : ''
+      contentFile += route.url? `<loc>http://filmes-temporadas-online.ml/${route.url}</loc>\n` : ''
+      contentFile += route.url? `<lastmod>2021-01-20T15:59:52+00:00</lastmod>\n` : ''
+      contentFile += route.url? `</url>\n` : ''
+      contentFile += route.url1? `<url>\n` : ''
+      contentFile += route.url1? `<loc>http://filmes-temporadas-online.ml/assistir/${route.url1}</loc>\n` : ''
+      contentFile += route.url1? `<lastmod>2021-01-20T15:59:52+00:00</lastmod>\n` : ''
+      contentFile += route.url1? `</url>\n` : ''
     })
-    contentFile += "</Switch>\n";
-    contentFile += ")}"
+    contentFile += "</urlset>\n";
   
     return contentFile;
 }
 
 async function createFile(routes){
-    fs.writeFile('./components/MyRoutes.tsx', 
+    fs.writeFile('../public/sitemap.xml', 
     routeGenerator(routes)
     , function (err) {
       if (err) throw err;

@@ -1,6 +1,5 @@
 user-agent: *
 allow : /
-allow : /mulher-maravilha-1984
+Sitemap: http://www.filmes-temporadas-online.ml/sitemap.xml
 disallow: /downloads/
-user-agent: magicsearchbot
 disallow: /uploads/
