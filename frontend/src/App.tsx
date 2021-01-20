@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import "./App.css";
-import MyRoutes from './components/MyRoutes';
+import Detail from './pages/Detail';
+import DetailOne from './pages/DetailOne';
 import Home from './pages/Home';
 import WebTorrentPage from './pages/WebTorrentPage';
 
@@ -17,7 +18,8 @@ export default function App() {
       {/* Home access! */}
       <Route exact path="/" component={Home} />
       <Route exact path="/webtorrent" component={WebTorrentPage} />
-      <MyRoutes></MyRoutes>
+      <Route exact path="/:url" component={Detail} />
+      <Route exact path="/assistir/:url1" component={DetailOne} />
 
       {/* <Route path="*" component={'Página desconhecida'} /> */}
     </Switch>

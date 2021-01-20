@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
-import { useHistory , Link} from "react-router-dom";
+import { useHistory , Link, useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
 
 export default function DetailOne(props)  {
   let history = useHistory();
   const [movie, setMovie] = useState();
   const [vVisibility, setVVisibility] = useState(false);
-
+  const {url1} = useParams();
   async function getByUrlOne(url1){
     await Api.post("/movies/get-by-url-one",{url1 : url1})
     .then((response) => {
@@ -20,7 +20,7 @@ export default function DetailOne(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    getByUrlOne(history.location.pathname.replace("/",""))
+    getByUrlOne(url1)
     // eslint-disable-next-line
   },[])
 
@@ -59,7 +59,7 @@ function openFullscreen() {
                 <title>{movie?.title + " assistir online"}</title>
                 <meta name="description" content={movie?.synopsis}></meta>
                 <meta property="og:title" content={movie?.synopsis}></meta>
-                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
                 </Helmet>
                 <Link className="back-button" to="/">{window.innerWidth < 400? 'VOLTAR' : "⮢"}</Link>
 

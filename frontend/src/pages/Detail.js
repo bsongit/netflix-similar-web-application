@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
-import { useHistory , Link} from "react-router-dom";
+import { useHistory , Link, useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
 export default function Detail(props)  {
   let history = useHistory();
@@ -9,7 +9,7 @@ export default function Detail(props)  {
   const [hasClcik, setHasClick] = useState(false);
   const [iframe, setIframe] = useState();
   const [skipAnounce, setSkipAnounce] = useState(false);
-
+  const {url} = useParams();
   async function getByUrl(url){
     await Api.post("/movies/get-by-url",{url : url})
     .then((response) => {
@@ -103,7 +103,7 @@ export default function Detail(props)  {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getByUrl(history.location.pathname.replace("/",""))
+    getByUrl(url)
     setIframe(document.getElementsByTagName('iframe')[0]);
     watchAd(history)
     // eslint-disable-next-line
@@ -123,7 +123,7 @@ export default function Detail(props)  {
         }
     })
     end++;
-    console.log(scpts);
+    // console.log(scpts);
     }, 1000)
   }
 
