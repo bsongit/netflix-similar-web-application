@@ -21,7 +21,16 @@ const movieSchema = new mongoose.Schema({
   urlImg2: {type: String},
   urlImg3: {type: String},
   playerVideo2 : {type: String},
-  playerVideo3 : {type: String}
+  playerVideo3 : {type: String},
+  plot: {type : String},
+  classifBR: {type: String},
+  releaseCinemaBr: {type: String},
+  releaseDigital: {type: String},
+  releaseDvD : {type: String},
+  budget : {type: String},
+  ticketgain: {type : String},
+  trailer: {type: String},
+  cast: {type: Array}
 
 });
 

@@ -17,6 +17,11 @@
   top: 0;
 }
 
+.trailer{
+  max-width: 100%;
+  min-width: 100%;
+}
+
 html{
   zoom: 100% !important;
   min-zoom: 100% !important;
@@ -207,6 +212,9 @@ body{
 .mt-2{
   margin-top: 2em !important;
 }
+.mt-5{
+  margin-top: 5em !important;
+}
 .p-1{
   padding: 1em;
 }
@@ -282,6 +290,21 @@ input{
   border-bottom: 1px solid gray;
   color: var(--shadow-light-blue);
 }
+.lastcontent{
+  margin-top: 2em;
+  color: #e8f5f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  max-width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.lastcontent .content{
+  min-width: 50%;
+  max-width: 50%;
+}
 select{
   width: 100%;
   height: 2em;
@@ -326,7 +349,12 @@ button{
   color: white;
   cursor: pointer;
 }
-
+.cursor-pointer{
+   cursor: pointer;
+ }
+.logo:hover{
+  filter: opacity(70%);
+}
 button:hover{
   background-color: gray;
   color: white;
@@ -344,12 +372,28 @@ label{
   /* overflow: scroll; */
 }
 
+.imgs-home{
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  padding-left: 5em;
+  padding-right: 5em;
+}
+.imgs-home img{
+  width: 30%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.imgs-home img:hover{
+  box-shadow: 0px 0px 12px var(--beson-red);
+}
+
 .carrossel-container{
   display: flex;
   flex-direction: column;
   height: 60%;
   width: 100%;
-  background-color: var(--shadow-dark-blue);
+  background-color: #17171a;
   justify-content: center;
   justify-items: center;
 
@@ -683,8 +727,15 @@ label{
 }
 
 .logo {
-  height: 3.2em;
-  width: 13em;
+  height: 2.5em;
+  width: 7.5em;
+}
+.centered{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
 }
 
 .box-shadow{
@@ -798,8 +849,14 @@ label{
   /* color: white; */
   display: flex;
   justify-content: center;
-  margin-top: 40em;
+  margin-top: 15em;
   z-index: 6000;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+.fb-comments{
   min-width: 100%;
   max-width: 100%;
   min-height: 100%;
@@ -1028,6 +1085,26 @@ label{
   }
   .picture-item img{
     display: none;
+  }
+  
+  .lastcontent{
+    margin-top: 12em;
+  }
+  .lastcontent .content{
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .comments{
+    background-color: whitesmoke;
+    /* color: white; */
+    display: flex;
+    justify-content: center;
+    margin-top: 65em;
+    z-index: 6000;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
   }
 }
 

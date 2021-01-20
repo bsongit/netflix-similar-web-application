@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useHistory } from "react-router-dom";
-import Carrossel from '../components/Carrossel';
+import { useHistory} from "react-router-dom";
 import ChooseUrl from '../components/ChooseUrl';
 import Cover from '../components/Cover';
 import Footer from '../components/Footer';
@@ -8,6 +7,7 @@ import LoadComponent from '../components/LoadComponent';
 import Navbar from '../components/Navbar';
 import Pager from '../components/Pager';
 import Api from '../util/Api';
+import {Helmet} from "react-helmet";
 
 type Props = {}
 
@@ -22,7 +22,8 @@ interface Movie {
   url2: string,
   imdb: string,
   release: string,
-  synopsis: string
+  synopsis: string,
+  title: string
 
 }
 
@@ -124,16 +125,28 @@ export default function Home(props : Props)  {
 
   return (
       <div className="container">
+
+        <Helmet>
+                <title>{'Filmes Temporadas Online'}</title>
+                <meta name="description" content={"Assistir filmes e series, mais de 16 mil disponíveis via torrent ou player. Downloads e streamings"}></meta>
+                <meta property="og:title" content={"Filmes Temporadas Online"}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/"}></meta>
+        </Helmet>
         {windowChosseUrl && selectedMovie? <ChooseUrl contexWindowModal={[windowChosseUrl,setWindowChosseUrl]} movieContext={selectedMovie} selectMovie={selectMovie}/> : "" }
         
           {load? <LoadComponent></LoadComponent> : ""}
           <Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
           {window.innerWidth > 400? 
-                <Carrossel>
-                {moviesCarrossel?.map((movie : Movie) => {
-                  return <Cover isImgLow={false}  seeImdb={false} movie={movie} onClick={() => chooseUrl(movie)}/>;
-                })}
-              </Carrossel>
+              //   <Carrossel>
+              //   {moviesCarrossel?.map((movie : Movie) => {
+              //     return <Cover isImgLow={false}  seeImdb={false} movie={movie} onClick={() => chooseUrl(movie)}/>;
+              //   })}
+              // </Carrossel>
+              <div className="imgs-home">
+                              <img  src={getBestImg(moviesCarrossel[0])} alt={"Capa do filme " + moviesCarrossel[0]?.name}  onClick={() => chooseUrl(moviesCarrossel[0])}/>
+                              <img  src={getBestImg(moviesCarrossel[1])} alt={"Capa do filme " + moviesCarrossel[1]?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
+                              <img  src={getBestImg(moviesCarrossel[2])} alt={"Capa do filme " + moviesCarrossel[2]?.name}  onClick={() => chooseUrl(moviesCarrossel[2])}/>
+              </div>
           : <div className="primary-movie" >
               <img  src={getBestImg(moviesCarrossel[1])} alt={primaryMovie?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
             </div>

@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
-import { useHistory } from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
+import {Helmet} from "react-helmet";
+
 export default function DetailOne(props)  {
   let history = useHistory();
   const [movie, setMovie] = useState();
@@ -11,6 +13,7 @@ export default function DetailOne(props)  {
     .then((response) => {
       setMovie(response.data);
     }).catch((error) => {
+      window.location.reload()
       console.error(error)
     })
   }
@@ -37,11 +40,6 @@ export default function DetailOne(props)  {
       return movie?.urlImg;
     }
   }
-
-  function setGetBack(){
-    history.push("/")
-  }
-
  
 
 /* View in fullscreen */
@@ -57,7 +55,13 @@ function openFullscreen() {
 }
 
   return (<div className="detail-bg">
-                <button className="back-button" onClick={() => setGetBack()}>{window.innerWidth < 400? 'VOLTAR' : "⮢"}</button>
+                <Helmet>
+                <title>{movie?.title + " assistir online"}</title>
+                <meta name="description" content={movie?.synopsis}></meta>
+                <meta property="og:title" content={movie?.synopsis}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
+                </Helmet>
+                <Link className="back-button" to="/">{window.innerWidth < 400? 'VOLTAR' : "⮢"}</Link>
 
                 <div className="parent-player">
                     <div className={vVisibility? "visibility-show" : ""} id="player"  >
@@ -100,19 +104,64 @@ function openFullscreen() {
                      </div>
 
                      <div className={movie?.category === "filme"? 'mt-2' : 'collapsed'}>
-                         <button onClick={() => onWatch() }>ASSISTIR</button>
+                         <button onClick={() => onWatch() }>Assistir filme</button>
                      </div>
                      </div>
                      <div className="hide-mobile picture-item">
                          <img src={getBestImg(movie)} alt={movie?.name}></img>
                      </div>
                  </div>
+
+                 
+                 <div className="lastcontent">
+            <div className="content d-block d-col">
+            <div >
+                    <strong>TRAILER {movie?.title?.toUpperCase()}</strong>
+                    </div>
+                    <div>
+                    <iframe className="trailer"
+                    src={`https://www.youtube-nocookie.com/embed/${movie?.trailer}?rel=0&modestbranding=1&showinfo=0&autoplay=1`}
+                    frameborder="0" allow="picture-in-picture; paused"
+                    allowfullscreen></iframe>
+                    </div>
+                <div className="text-shadow-light-blue">
+                    <p>
+                    {movie?.plot}
+                    </p>
+                </div>
+            <div className="mt-1 text-shadow-light-blue">
+                
+                    <div >
+                        <strong>Classificação: {movie?.classifBR}</strong>
+                    </div>
+                    <div >
+                    <strong>Orçamento: {movie?.budget}</strong>
+                    </div>
+                    <div >
+                    <strong> Bilheteria: {movie?.ticketgain}</strong>
+                    </div>
+                    <div >
+                        <strong>{movie?.releaseCinemaBr}</strong>
+                    </div>
+                    <div >
+                    <strong>{movie?.releaseDigital}</strong>
+                    </div>
+                    <div >
+                    <strong>{movie?.releaseDvD}</strong>
+                    </div>
+
+                    
+            </div>
+            </div>
+            </div>
+
              </div>
                 
                 : ""}
             <div className="comments">
                     <div className="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="500" data-numposts="5"></div>
             </div>
+
         </div>
   )
 }

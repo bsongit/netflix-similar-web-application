@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import Api from '../util/Api';
 import Sidebar from './Sidebar';
 import Logo from '../imgs/logo.png'
+import {Link} from "react-router-dom";
 
 type Props = {
   context : [string, React.Dispatch<React.SetStateAction<string>>];
@@ -73,7 +74,9 @@ export default function Navbar(props : Props)  {
       <div className="search-mobile">
         <div className="row ">
         <button className="w-3" onClick={() => setExpanded(!isExpanded)}>☰</button>
-        <img className="hide-mobile logo" alt="logo" src={Logo}></img>
+        <Link className="hide-mobile centered cursor-pointer" to="/">
+          <img className="logo" alt="logo" src={Logo}></img>
+        </Link>
       </div>
       </div>
       <div className="w-50 mt-05 d-flex">

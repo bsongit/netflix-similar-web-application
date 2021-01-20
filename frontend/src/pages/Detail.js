@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
-import { useHistory } from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
+import {Helmet} from "react-helmet";
 export default function Detail(props)  {
   let history = useHistory();
   const [movie, setMovie] = useState();
@@ -17,6 +18,7 @@ export default function Detail(props)  {
         webtor(response.data);
       }
     }).catch((error) => {
+      window.location.reload()
       console.error(error)
     })
   }
@@ -113,6 +115,7 @@ export default function Detail(props)  {
         if(end >= 10 || history.location.pathname === "/" || history.location.pathname === "localhost:3000"){
             clearInterval(interval)
         }
+    
     var scripts = [...document.getElementsByTagName("script")]
     scripts?.map(scr => {
         if(scr.src.includes("p412601")){
@@ -143,10 +146,14 @@ export default function Detail(props)  {
     }
   }
 
-
   return (<div className="detail-bg">
-                <button className="back-button" onClick={() => history.push("/")}>{window.innerWidth < 400? 'VOLTAR' : "⮢"}</button>
-                <div className="row">
+                <Helmet>
+                <title>{movie?.title + " assistir online"}</title>
+                <meta name="description" content={movie?.synopsis}></meta>
+                <meta property="og:title" content={movie?.title + " assistir online"}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
+                </Helmet>
+                <Link className="back-button" to="/">{window.innerWidth < 400? 'VOLTAR' : "⮢"}</Link>                <div className="row">
                 <div className="select-series">
                 <select className={(vVisibility && movie?.category === "serie") ? '' : 'collapsed'} onChange={handleChange2} >
                             <option  default>Selecionar outro epsódio</option>
@@ -200,7 +207,7 @@ export default function Detail(props)  {
                         </div>
 
                         <div className={movie?.category === "filme"? 'mt-2' : 'collapsed'}>
-                            <button onClick={() => onWatch() }>ASSISTIR</button>
+                            <button onClick={() => onWatch() }>Assistir filme </button>
                         </div>
                         <div className="mt-2 w-50 bg-dark-blue">
                         <select className={movie?.category === "serie"? '' : 'collapsed'} onChange={handleChange} >
@@ -219,10 +226,53 @@ export default function Detail(props)  {
                     </div>
 
 
+                    <div className="lastcontent">
+            <div className="content d-block d-col">
+            <div >
+                    <strong>TRAILER {movie?.title?.toUpperCase()}</strong>
+                    </div>
+                    <div>
+                    <iframe className="trailer"
+                    src={`https://www.youtube-nocookie.com/embed/${movie?.trailer}?rel=0&modestbranding=1&showinfo=0&autoplay=1`}
+                    frameborder="0" allow="picture-in-picture; paused"
+                    allowfullscreen></iframe>
+                    </div>
+                <div className="text-shadow-light-blue">
+                    <p>
+                    {movie?.plot}
+                    </p>
+                </div>
+            <div className="mt-1 text-shadow-light-blue">
+                
+                    <div >
+                        <strong>Classificação: {movie?.classifBR}</strong>
+                    </div>
+                    <div >
+                    <strong>Orçamento: {movie?.budget}</strong>
+                    </div>
+                    <div >
+                    <strong> Bilheteria: {movie?.ticketgain}</strong>
+                    </div>
+                    <div >
+                        <strong>{movie?.releaseCinemaBr}</strong>
+                    </div>
+                    <div >
+                    <strong>{movie?.releaseDigital}</strong>
+                    </div>
+                    <div >
+                    <strong>{movie?.releaseDvD}</strong>
+                    </div>
+
+                    
+            </div>
+            </div>
+            </div>
+
+
                 </div>
                 
                 : ""}
-
+  
             <div className="comments">
                     <div className="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="500" data-numposts="5"></div>
             </div>
