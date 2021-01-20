@@ -1,0 +1,6 @@
+user-agent: *
+allow : /
+allow : /mulher-maravilha-1984
+disallow: /downloads/
+user-agent: magicsearchbot
+disallow: /uploads/

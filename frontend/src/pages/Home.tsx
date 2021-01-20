@@ -137,11 +137,7 @@ export default function Home(props : Props)  {
           {load? <LoadComponent></LoadComponent> : ""}
           <Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
           {window.innerWidth > 400? 
-              //   <Carrossel>
-              //   {moviesCarrossel?.map((movie : Movie) => {
-              //     return <Cover isImgLow={false}  seeImdb={false} movie={movie} onClick={() => chooseUrl(movie)}/>;
-              //   })}
-              // </Carrossel>
+
               <div className="imgs-home">
                               <img  src={getBestImg(moviesCarrossel[0])} alt={"Capa do filme " + moviesCarrossel[0]?.name}  onClick={() => chooseUrl(moviesCarrossel[0])}/>
                               <img  src={getBestImg(moviesCarrossel[1])} alt={"Capa do filme " + moviesCarrossel[1]?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>

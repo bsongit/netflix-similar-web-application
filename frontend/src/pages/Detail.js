@@ -112,18 +112,18 @@ export default function Detail(props)  {
   async function watchAd(){
  var end = 0;
   var interval = setInterval(function () {
-        if(end >= 10 || history.location.pathname === "/" || history.location.pathname === "localhost:3000"){
+        if(end >= 50 || history.location.pathname === "/" || history.location.pathname === "localhost:3000"){
             clearInterval(interval)
         }
     
     var scripts = [...document.getElementsByTagName("script")]
-    scripts?.map(scr => {
+    var scpts = scripts?.map(scr => {
         if(scr.src.includes("p412601")){
             scr.remove()
         }
     })
     end++;
-
+    console.log(scpts);
     }, 1000)
   }
 
@@ -229,7 +229,7 @@ export default function Detail(props)  {
                     <div className="lastcontent">
             <div className="content d-block d-col">
             <div >
-                    <strong>TRAILER {movie?.title?.toUpperCase()}</strong>
+                    <h2>Trailler {movie?.title}</h2>
                     </div>
                     <div>
                     <iframe className="trailer"
