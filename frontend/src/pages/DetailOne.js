@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 import Video from '../components/Video'
 export default function DetailOne(props)  {
   let history = useHistory();
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState(JSON.parse(localStorage.getItem("currentMovie")));
   const [vVisibility, setVVisibility] = useState(false);
   const {url1} = useParams();
   async function getByUrlOne(url1){
@@ -13,14 +13,15 @@ export default function DetailOne(props)  {
     .then((response) => {
       setMovie(response.data);
     }).catch((error) => {
-      window.location.reload()
       console.error(error)
     })
   }
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    getByUrlOne(url1)
+    if(localStorage.getItem("currentMovie") === null){
+      getByUrlOne(url1)
+      }
     // eslint-disable-next-line
   },[])
 

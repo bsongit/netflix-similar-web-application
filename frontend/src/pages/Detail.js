@@ -4,12 +4,13 @@ import { useHistory , Link, useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
 export default function Detail(props)  {
   let history = useHistory();
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState(JSON.parse(localStorage.getItem('currentMovie')))
   const [vVisibility, setVVisibility] = useState(false);
   const [hasClcik, setHasClick] = useState(false);
   const [iframe, setIframe] = useState();
   const [skipAnounce, setSkipAnounce] = useState(false);
   const {url} = useParams();
+
   async function getByUrl(url){
     await Api.post("/movies/get-by-url",{url : url})
     .then((response) => {
@@ -17,8 +18,10 @@ export default function Detail(props)  {
       if(response.data.category ==="filme"){
         webtor(response.data);
       }
+      else{
+        webtorEp(response.data);
+      }
     }).catch((error) => {
-      window.location.reload()
       console.error(error)
     })
   }
@@ -100,10 +103,19 @@ export default function Detail(props)  {
     iframe.remove();
   }
 
-
+  console.log(movie)
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    if(localStorage.getItem("currentMovie") === null){
     getByUrl(url)
+    }
+    if(movie.category === "filme"){
+        webtor(movie);
+    }
+    else{
+        webtorEp(movie); 
+    }
     setIframe(document.getElementsByTagName('iframe')[0]);
     watchAd(history)
     // eslint-disable-next-line
@@ -155,14 +167,17 @@ export default function Detail(props)  {
                 </Helmet>
                 <Link className="back-button" to="/">{window.innerWidth < 400? 'VOLTAR' : "⮢"}</Link>                <div className="row">
                 <div className="select-series">
-                <select className={(vVisibility && movie?.category === "serie") ? '' : 'collapsed'} onChange={handleChange2} >
+                {(vVisibility && movie?.category === "serie") ? 
+                    <select  onChange={handleChange2} >
                             <option  default>Selecionar outro epsódio</option>
-                        {movie?.eps.map(ep => {
-                            return (
-                                <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
-                            )
-                        })}
-                        </select>
+                                {movie?.eps.map(ep => {
+                                    return (
+                                        <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
+                                    )
+                                })}
+                    </select>
+                : ''} 
+
                 </div>
                 </div>
                 <div className="parent-player">
@@ -210,14 +225,19 @@ export default function Detail(props)  {
                             <button onClick={() => onWatch() }>Assistir filme </button>
                         </div>
                         <div className="mt-2 w-50 bg-dark-blue">
-                        <select className={movie?.category === "serie"? '' : 'collapsed'} onChange={handleChange} >
-                            <option  default>Escolha um epsódio</option>
-                        {movie?.eps.map(ep => {
-                            return (
-                                <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
-                            )
-                        })}
-                        </select>
+                        {movie?.category === "serie"?
+                        
+                        <select  onChange={handleChange} >
+                                <option  default>Escolha um epsódio</option>
+                                {movie?.eps.map(ep => {
+                                    return (
+                                        <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
+                                    )
+                                })}
+                                </select>
+                        
+                        : ''}
+
                         </div>
                         </div>
                         <div className="hide-mobile  picture-item">

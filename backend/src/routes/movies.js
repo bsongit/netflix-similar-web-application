@@ -40,16 +40,16 @@ router.post("/get15", async (req, res) => {
 
     var response =  [];
     {req.body.category !== ""?
-      response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
+      response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15)
       : 
-      response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15).select(['-magnet', '-eps'])
+      response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(15);
     }
 
 
-    var filmesLancamento = await Movies.find({release: { $regex: '.*' + '2020' + '.*' } , category: "filme", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(5).select(['-magnet', '-eps']);
-    var seriesLancamento = await Movies.find({release: { $regex: '.*' + '2020' + '.*' } , category: "serie", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(5).select(['-magnet', '-eps']);
-    var maisAssistidos = await Movies.find({imdb: { $regex: '9.' }}).limit(5).select(['-magnet', '-eps']);
-    var outros = await Movies.find({category: req.body.cartegory || "filme", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip + 5).limit(5).select(['-magnet', '-eps']);
+    var filmesLancamento = await Movies.find({release: { $regex: '.*' + '2020' + '.*' } , category: "filme", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(5)
+    var seriesLancamento = await Movies.find({release: { $regex: '.*' + '2020' + '.*' } , category: "serie", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip).limit(5)
+    var maisAssistidos = await Movies.find({imdb: { $regex: '9.' }}).limit(5);
+    var outros = await Movies.find({category: req.body.cartegory || "filme", genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(req.body.skip + 5).limit(5)
     res.send([...filmesLancamento,...seriesLancamento,...maisAssistidos,...outros,...response]);
   } catch (error) {
     res.send(error);
@@ -60,9 +60,9 @@ router.post("/get3-carrossel", async (req, res) => {
   try {
     var response = [];
   {req.body.category !== ""?
-      response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(Math.floor(Math.random() * 100)).limit(3).select(['-magnet', '-eps'])
+      response = await Movies.find({category: req.body.category, genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(Math.floor(Math.random() * 100)).limit(3)
       : 
-      response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(Math.floor(Math.random() * 100)).limit(3).select(['-magnet', '-eps'])
+      response = await Movies.find({genere : { $regex: '.*' + req.body.genere + '.*' }}).skip(Math.floor(Math.random() * 100)).limit(3)
       }
 
     res.send(response);
@@ -72,7 +72,7 @@ router.post("/get3-carrossel", async (req, res) => {
 });
 router.get("/get1", async (req, res) => {
   try {
-    var response = await Movies.find().skip(Math.floor(Math.random() * 16000)).limit(1).select(['-magnet', '-eps'])
+    var response = await Movies.find().skip(Math.floor(Math.random() * 16000)).limit(1)
     res.send(response[0]);
   } catch (error) {
     res.send(error);

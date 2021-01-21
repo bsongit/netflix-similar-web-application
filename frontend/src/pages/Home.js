@@ -9,48 +9,31 @@ import Pager from '../components/Pager';
 import Api from '../util/Api';
 import {Helmet} from "react-helmet";
 
-type Props = {}
 
-interface Movie {
-  name: string,
-  urlImg: string,
-  urlImg2: string,
-  urlImg3: string,
-  data: Date,
-  url: string,
-  url1: string,
-  url2: string,
-  imdb: string,
-  release: string,
-  synopsis: string,
-  title: string
+export default function Home(props)  {
 
-}
-
-export default function Home(props : Props)  {
-
-  const [movies, setMovies] = useState<Array<Movie>>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie>();
-  const [windowChosseUrl, setWindowChosseUrl] = useState<boolean>(false);
-  const [primaryMovie, setPrimaryMovie] = useState<Movie>();
-  const [load, setLoad] = useState<boolean>(false);
-  const [moviesCarrossel, setMoviesCarrossel] = useState<Array<Movie>>([]);
-  const [skipNumber, setSkipNumber] = useState<number>(0);
-  const [index, setIndex]   = useState<number>(0);
-  const [pageOffSetStart, setPageOffSetStart]   = useState<number>(0);
-  const [pageOffSetEnd, setPageOffSetEnd]   = useState<number>(5);
-  const [category, setCategory] = useState<string>("");
-  const [genere, setGenere] = useState<string>("");
-  const [isArrive, setArrive] = useState<boolean>(true);
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState();
+  const [windowChosseUrl, setWindowChosseUrl] = useState(false);
+  const [primaryMovie, setPrimaryMovie] = useState();
+  const [load, setLoad] = useState(false);
+  const [moviesCarrossel, setMoviesCarrossel] = useState([]);
+  const [skipNumber, setSkipNumber] = useState(0);
+  const [index, setIndex]   = useState(0);
+  const [pageOffSetStart, setPageOffSetStart]   = useState(0);
+  const [pageOffSetEnd, setPageOffSetEnd]   = useState(5);
+  const [category, setCategory] = useState("");
+  const [genere, setGenere] = useState("");
+  const [isArrive, setArrive] = useState(true);
   const numberOfPages = new Array(900).fill(0);
   let history = useHistory();
 
-  async function getMovies(skip : number, category : string, genere : string) {
+  async function getMovies(skip, category, genere) {
     Api.post('/movies/get15', {skip : skip, category: category, genere : genere})
-    .then((response: { data: Array<Movie>}) => {
+    .then(response => {
         setMovies(response.data);
     })
-    .catch((error: any) => {
+    .catch(error => {
       console.log(error);
     });
   };
@@ -60,21 +43,21 @@ export default function Home(props : Props)  {
     setTimeout(() => setLoad(false),1000)
   }
 
-  async function getMoviesCorrossel(category : string, genere : string) {
+  async function getMoviesCorrossel(category, genere) {
     Api.post('/movies/get3-carrossel',{category : category, genere : genere})
-    .then((response: { data: Array<Movie>}) => {
+    .then((response) => {
         setMoviesCarrossel(response.data);
         setPrimaryMovie(response.data[1]);
     })
-    .catch((error: any) => {
+    .catch(error => {
       console.log(error);
     });
   };
 
-  const  handleClassName = (number : number) : string => {
+  const  handleClassName = (number) => {
     return `border ml-1 ${index === number ? "bg-yellow" : "bg-dark-blue"}`
   }
-  const  handleClick = (currentIndex: number) : void => {
+  const  handleClick = (currentIndex) => {
     setLoad(true);
     loading();
     window.scrollTo(0, 0);
@@ -97,7 +80,7 @@ export default function Home(props : Props)  {
     getMovies(skipNumber, category, genere);
   },[skipNumber, category, genere]);
 
-  function selectMovie(url : string){
+  function selectMovie(url){
     if(url !== 'undefined'){
     setLoad(true);
     loading();
@@ -105,12 +88,13 @@ export default function Home(props : Props)  {
     }
   }
 
-  function chooseUrl(movie : Movie){
+  function chooseUrl(movie){
     setWindowChosseUrl(true);
     setSelectedMovie(movie);
+    localStorage.setItem("currentMovie",JSON.stringify(movie));
   }
 
-  function getBestImg(movie : Movie){
+  function getBestImg(movie){
     if(movie?.urlImg3){
       return movie.urlImg3;
     }
@@ -152,14 +136,14 @@ export default function Home(props : Props)  {
                       <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos em 2020</h1>
                       <div className="row-pager">
                        <span className="hide-pc">........................................................</span>
-                      {movies?.slice(0,5).map((movie : Movie) => {
+                      {movies?.slice(0,5).map((movie) => {
                         return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)} />;
                       })}
                       </div>
                       <h2 className="text-shadow-light-blue ml-1">Series online em 2020</h2>
                       <div className="row-pager">
                       <span className="hide-pc">........................................................</span>
-                      {movies?.slice(5,10).map((movie : Movie) => {
+                      {movies?.slice(5,10).map((movie) => {
                         return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                       })}
                       </div>
@@ -170,7 +154,7 @@ export default function Home(props : Props)  {
                       <span className="hide-pc">........................................................</span>
                       
                       {
-                      movies?.slice(10,15).map((movie : Movie) => {
+                      movies?.slice(10,15).map((movie) => {
                         return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                       })}
                       </div>
@@ -180,7 +164,7 @@ export default function Home(props : Props)  {
                       <span className="hide-pc">........................................................</span>
                       
                       {
-                      movies?.slice(15,20).map((movie : Movie) => {
+                      movies?.slice(15,20).map((movie) => {
                         return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                       })
                       }
@@ -202,20 +186,20 @@ export default function Home(props : Props)  {
                 <h3 className="text-shadow-light-blue ml-1">Encontrados : {category && genere? category+ 's de '+ genere.toLocaleLowerCase() : genere} </h3>
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
-                {movies?.slice(20,25).map((movie : Movie) => {
+                {movies?.slice(20,25).map((movie) => {
                   return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)} />;
                 })}
                 </div>
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
-                {movies?.slice(25,30).map((movie : Movie) => {
+                {movies?.slice(25,30).map((movie) => {
                   return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                 })}
                 </div>
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
                 { 
-                movies?.slice(30,35).map((movie : Movie) => {
+                movies?.slice(30,35).map((movie) => {
                   return <Cover isImgLow={true} seeImdb={true} movie={movie} onClick={() => chooseUrl(movie)}/>;
                 })
                 }
