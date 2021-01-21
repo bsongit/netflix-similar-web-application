@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
 import { useHistory , Link, useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
-
+import Video from '../components/Video'
 export default function DetailOne(props)  {
   let history = useHistory();
   const [movie, setMovie] = useState();
@@ -65,12 +65,7 @@ function openFullscreen() {
 
                 <div className="parent-player">
                     <div className={vVisibility? "visibility-show" : ""} id="player"  >
-                        <div className="video2">
-                          {movie?.playerVideo2.includes("sub=")?
-                              <iframe src={movie?.playerVideo2} title={movie?.title} /> :
-                              <video autoplay controls src={[movie?.playerVideo2.slice(0, movie?.playerVideo2.indexOf('?')), 'option_1.php', movie?.playerVideo2.slice(movie?.playerVideo2.indexOf('?'))].join('')} title={movie?.title}  />
-                          }
-                        </div>
+                        {movie? <Video movie={movie}></Video> : "" }
                     </div>
                 </div>
                 <img  className={!vVisibility? "img-resume" : "collapsed"} src={getBestImg(movie)} alt={movie?.name}></img>
@@ -158,9 +153,6 @@ function openFullscreen() {
              </div>
                 
                 : ""}
-            <div className="comments">
-                    <div className="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="500" data-numposts="5"></div>
-            </div>
 
         </div>
   )
