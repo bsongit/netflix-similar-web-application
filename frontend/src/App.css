@@ -766,10 +766,11 @@ label{
 }
 .back-button{
   color: white;
-  font-size: 2em;
+  font-size: 3em;
+  margin-top: -0.8em;
+  margin-left: 0.5em;
   position: absolute;
   z-index: 5000;
-  float: inline-start;
   top: 0;
   width: 1em;
   height: 1em;

@@ -55,14 +55,25 @@ function openFullscreen() {
   }
 }
 
+function getTitle(movie){
+  if(movie?.title){
+      return movie?.title;
+  }
+  else{
+      return movie?.name;
+  }
+}
+
   return (<div className="detail-bg">
                 <Helmet>
                 <title>{movie?.title + " assistir online"}</title>
                 <meta name="description" content={movie?.synopsis}></meta>
-                <meta property="og:title" content={movie?.synopsis}></meta>
+                <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
                 <meta property="og:url" content={"http://filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
                 </Helmet>
-                <Link className="back-button" to="/">{window.innerWidth < 400? 'VOLTAR' : "⮢"}</Link>
+                <Link className="back-button" to="/">
+                <li>🠸</li>
+                </Link>
 
                 <div className="parent-player">
                     <div className={vVisibility? "visibility-show" : ""} id="player"  >

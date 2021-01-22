@@ -111,21 +111,29 @@ export default function Home(props)  {
       <div className="container">
 
         <Helmet>
-                <title>{'Filmes Temporadas Online'}</title>
+                <title>{'Assistir filme online'}</title>
                 <meta name="description" content={"Assistir filmes e series, mais de 16 mil disponíveis via torrent ou player. Downloads e streamings"}></meta>
-                <meta property="og:title" content={"Filmes Temporadas Online"}></meta>
+                <meta property="og:title" content={"Assistir filme online"}></meta>
                 <meta property="og:url" content={"http://filmes-temporadas-online.ml/"}></meta>
         </Helmet>
         {windowChosseUrl && selectedMovie? <ChooseUrl contexWindowModal={[windowChosseUrl,setWindowChosseUrl]} movieContext={selectedMovie} selectMovie={selectMovie}/> : "" }
         
           {load? <LoadComponent></LoadComponent> : ""}
           <Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
+          
+          <div id="description" className="hide-mobile hide-pc">
+              <h1>Assistir filme?</h1>
+              <p>É o que você poderá fazer aqui. Temos os melhores filmes já lançados em toda história do cinema.</p>
+              <h2>Assistir serie?</h2>
+              <p>É que você deve fazer em nossos sites, temos todas as temporadas da sua serie preferida. filmes-temporadas-online</p>
+          </div>
+          
           {window.innerWidth > 400? 
 
               <div className="imgs-home">
-                              <img  src={getBestImg(moviesCarrossel[0])} alt={"Capa do filme " + moviesCarrossel[0]?.name}  onClick={() => chooseUrl(moviesCarrossel[0])}/>
-                              <img  src={getBestImg(moviesCarrossel[1])} alt={"Capa do filme " + moviesCarrossel[1]?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
-                              <img  src={getBestImg(moviesCarrossel[2])} alt={"Capa do filme " + moviesCarrossel[2]?.name}  onClick={() => chooseUrl(moviesCarrossel[2])}/>
+                              <img  src={getBestImg(moviesCarrossel[0])} alt={"Filme " + moviesCarrossel[0]?.name}  onClick={() => chooseUrl(moviesCarrossel[0])}/>
+                              <img  src={getBestImg(moviesCarrossel[1])} alt={"Filme " + moviesCarrossel[1]?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
+                              <img  src={getBestImg(moviesCarrossel[2])} alt={"Filme " + moviesCarrossel[2]?.name}  onClick={() => chooseUrl(moviesCarrossel[2])}/>
               </div>
           : <div className="primary-movie" >
               <img  src={getBestImg(moviesCarrossel[1])} alt={primaryMovie?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>

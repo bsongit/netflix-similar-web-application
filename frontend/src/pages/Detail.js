@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
 import { useHistory , Link, useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
+import { getByTitle } from '@testing-library/react';
 export default function Detail(props)  {
   let history = useHistory();
   const [movie, setMovie] = useState(JSON.parse(localStorage.getItem('currentMovie')))
@@ -158,14 +159,26 @@ export default function Detail(props)  {
     }
   }
 
+  function getTitle(movie){
+    if(movie?.title){
+        return movie?.title;
+    }
+    else{
+        return movie?.name;
+    }
+  }
+
   return (<div className="detail-bg">
                 <Helmet>
                 <title>{movie?.title + " assistir online"}</title>
                 <meta name="description" content={movie?.synopsis}></meta>
-                <meta property="og:title" content={movie?.title + " assistir online"}></meta>
+                <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
                 <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
                 </Helmet>
-                <Link className="back-button" to="/">{window.innerWidth < 400? 'VOLTAR' : "⮢"}</Link>                <div className="row">
+                <Link className="back-button" to="/">
+                <li>🠸</li>
+                </Link>                
+                <div className="row">
                 <div className="select-series">
                 {(vVisibility && movie?.category === "serie") ? 
                     <select  onChange={handleChange2} >
