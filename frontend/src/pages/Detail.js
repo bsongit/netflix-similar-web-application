@@ -119,9 +119,9 @@ export default function Detail(props)  {
         else{
             webtorEp(movie); 
         }
+        setIframe(document.getElementsByTagName('iframe')[0]);
+        watchAd(history)
     }
-    setIframe(document.getElementsByTagName('iframe')[0]);
-    watchAd(history)
     // eslint-disable-next-line
   },[])
 
@@ -210,7 +210,7 @@ export default function Detail(props)  {
                     <div className={skipAnounce? "skip-anounce" : "collapsed"}>Pause o anúncio ou clique em Next para pular:</div>
                 </div>
                 <div className={skipAnounce? "skip-invisible" : "collapsed"} onClick={() => setSkipAnounce(false)}></div>
-                <img  className={!vVisibility? "img-resume" : "collapsed"} src={getBestImg(movie)} alt={movie?.name}></img>
+                <img  className={!vVisibility? "img-resume" : "collapsed"} src={movie? getBestImg(movie) : ""} alt={movie?.name}></img>
                 {!vVisibility?
                 <div className={"content-detail"}>
                 <div className="back-bt">
