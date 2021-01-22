@@ -17,6 +17,7 @@ cd /var/www
 rm -r html
 mv build html
 ls
+cd ..
 
 
     <link rel="stylesheet" href="http://cdn.plyr.io/3.5.10/plyr.css">

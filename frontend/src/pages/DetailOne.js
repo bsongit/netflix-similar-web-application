@@ -69,13 +69,16 @@ function getTitle(movie){
                 <title>{movie?.title + " assistir online"}</title>
                 <meta name="description" content={movie?.synopsis}></meta>
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
-                <meta property="og:url" content={"http://filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
+                <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
+                <meta property="og:description" content={movie?.synopsis}></meta>
+                <meta name="keywords" content={getTitle(movie).toLowerCase()} data-react-helmet="true" />
                 </Helmet>
-                <Link className="back-button" to="/">
-                <li>🠸</li>
-                </Link>
 
                 <div className="parent-player">
+                <div className="back-bt">
+                       <button  onClick={() => history.goBack()}>voltar</button>  
+                </div>
+
                     <div className={vVisibility? "visibility-show" : ""} id="player"  >
                         {movie? <Video movie={movie}></Video> : "" }
                     </div>
@@ -83,6 +86,9 @@ function getTitle(movie){
                 <img  className={!vVisibility? "img-resume" : "collapsed"} src={getBestImg(movie)} alt={movie?.name}></img>
                 {!vVisibility?
                  <div className={"content-detail"}>
+                <div className="back-bt">
+                       <button  onClick={() => history.goBack()}>voltar</button>  
+                </div>
                  <div className="border-center row d-flex">
                  <div className="content-item">
                      <div className="title">

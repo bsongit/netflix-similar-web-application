@@ -136,12 +136,19 @@ export default function Home(props)  {
                               <img  src={getBestImg(moviesCarrossel[2]) || './load3.svg'} alt={"Filme " + moviesCarrossel[2]?.name}  onClick={() => chooseUrl(moviesCarrossel[2])}/>
               </div>
           : <div className="primary-movie" >
-              <img  src={getBestImg(moviesCarrossel[1])} alt={primaryMovie?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
+              <img  src={getBestImg(moviesCarrossel[1]) || './load3.svg'} alt={primaryMovie?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
             </div>
           }
             {isArrive? 
                   <Pager>
                       <h1 className="text-shadow-light-blue ml-1">Filmes lançamentos em 2020</h1>
+                      {movies.length === 0? <div className="row w-100">
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                      </div>
+                      : ""}
                       <div className="row-pager">
                        <span className="hide-pc">........................................................</span>
                       {movies?.slice(0,5).map((movie) => {
@@ -149,6 +156,13 @@ export default function Home(props)  {
                       })}
                       </div>
                       <h2 className="text-shadow-light-blue ml-1">Series online em 2020</h2>
+                      {movies.length === 0? <div className="row w-100">
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                      </div>
+                      : ""}
                       <div className="row-pager">
                       <span className="hide-pc">........................................................</span>
                       {movies?.slice(5,10).map((movie) => {
@@ -157,6 +171,13 @@ export default function Home(props)  {
                       </div>
                       
                       <h2 className={"text-shadow-light-blue ml-1"}>Os 5 filmes mais assistidos em 2020</h2>
+                      {movies.length === 0? <div className="row w-100">
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                      </div>
+                      : ""}
                     
                       <div className="row-pager">
                       <span className="hide-pc">........................................................</span>
@@ -168,6 +189,13 @@ export default function Home(props)  {
                       </div>
 
                       <h2 className={"text-shadow-light-blue ml-1"}>Outros titulos relacionados</h2>
+                      {movies.length === 0? <div className="row w-100">
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                      </div>
+                      : ""}
                       <div className="row-pager">
                       <span className="hide-pc">........................................................</span>
                       
@@ -192,6 +220,13 @@ export default function Home(props)  {
 
           <Pager>
                 <h3 className="text-shadow-light-blue ml-1">Encontrados : {category && genere? category+ 's de '+ genere.toLocaleLowerCase() : genere} </h3>
+                {movies.length === 0? <div className="row w-100">
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                        <img src="./load3.svg" alt="svg loading"></img>
+                      </div>
+                      : ""}
                 <div className="row-pager">
                 <span className="hide-pc">........................................................</span>
                 {movies?.slice(20,25).map((movie) => {

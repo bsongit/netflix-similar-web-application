@@ -173,11 +173,12 @@ export default function Detail(props)  {
                 <title>{movie?.title + " assistir online"}</title>
                 <meta name="description" content={movie?.synopsis}></meta>
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
-                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
+                <meta name="description" content={movie?.synopsis}></meta>
+                <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/" + movie?.url}></meta>
+                <meta property="og:description" content={movie?.synopsis}></meta>
+                <meta name="keywords" content={getTitle(movie).toLowerCase()} data-react-helmet="true" />
                 </Helmet>
-                <Link className="back-button" to="/">
-                <li>🠸</li>
-                </Link>                
+                        <button className="back-button" onClick={() => history.pop()}></button>               
                 <div className="row">
                 <div className="select-series">
                 {(vVisibility && movie?.category === "serie") ? 
@@ -194,6 +195,9 @@ export default function Detail(props)  {
                 </div>
                 </div>
                 <div className="parent-player">
+                <div className="back-bt">
+                       <button  onClick={() => history.goBack()}>voltar</button>  
+                </div>
                     <div className={vVisibility? "visibility-show" : ""} id="player"></div>
                 </div>
                 <div className="row">
@@ -203,6 +207,9 @@ export default function Detail(props)  {
                 <img  className={!vVisibility? "img-resume" : "collapsed"} src={getBestImg(movie)} alt={movie?.name}></img>
                 {!vVisibility?
                 <div className={"content-detail"}>
+                <div className="back-bt">
+                       <button  onClick={() => history.goBack()}>voltar</button>  
+                </div>
                     <div className="border-center row d-flex">
                     <div className="content-item">
                         <div className="title">
