@@ -51,7 +51,7 @@ export default function Cover(props : Props)  {
   return (
     <div className="cover" onClick={() => props.onClick()} onMouseOver={() => setSVisibility(true)} onMouseOut={() => setSVisibility(false)}>
 
-      <img alt={"Capa do filme " + props.movie.name} src={getBestImg(props.movie)}>
+      <img alt={"Capa do filme " + props.movie.name} src={getBestImg(props.movie) || './load.svg'}>
       </img>
 
 

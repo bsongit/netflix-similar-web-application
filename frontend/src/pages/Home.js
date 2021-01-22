@@ -131,9 +131,9 @@ export default function Home(props)  {
           {window.innerWidth > 400? 
 
               <div className="imgs-home">
-                              <img  src={getBestImg(moviesCarrossel[0])} alt={"Filme " + moviesCarrossel[0]?.name}  onClick={() => chooseUrl(moviesCarrossel[0])}/>
-                              <img  src={getBestImg(moviesCarrossel[1])} alt={"Filme " + moviesCarrossel[1]?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
-                              <img  src={getBestImg(moviesCarrossel[2])} alt={"Filme " + moviesCarrossel[2]?.name}  onClick={() => chooseUrl(moviesCarrossel[2])}/>
+                              <img  src={getBestImg(moviesCarrossel[0]) || './load3.svg'} alt={"Filme " + moviesCarrossel[0]?.name}  onClick={() => chooseUrl(moviesCarrossel[0])}/>
+                              <img  src={getBestImg(moviesCarrossel[1]) || './load3.svg'} alt={"Filme " + moviesCarrossel[1]?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
+                              <img  src={getBestImg(moviesCarrossel[2]) || './load3.svg'} alt={"Filme " + moviesCarrossel[2]?.name}  onClick={() => chooseUrl(moviesCarrossel[2])}/>
               </div>
           : <div className="primary-movie" >
               <img  src={getBestImg(moviesCarrossel[1])} alt={primaryMovie?.name}  onClick={() => chooseUrl(moviesCarrossel[1])}/>
