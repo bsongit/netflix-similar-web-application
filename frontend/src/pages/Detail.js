@@ -112,11 +112,13 @@ export default function Detail(props)  {
     if(localStorage.getItem("currentMovie") === null || localStorage.getItem("currentMovie") === 'null' || localStorage.getItem("currentMovie") === ''){
         getByUrl(url)
     }
-    if(movie.category === "filme"){
-        webtor(movie);
-    }
-    else{
-        webtorEp(movie); 
+    if(movie !== null || movie !== 'null' || movie !== ''){
+        if(movie.category === "filme"){
+            webtor(movie);
+        }
+        else{
+            webtorEp(movie); 
+        }
     }
     setIframe(document.getElementsByTagName('iframe')[0]);
     watchAd(history)
