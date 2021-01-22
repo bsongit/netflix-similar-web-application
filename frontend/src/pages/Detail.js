@@ -16,6 +16,7 @@ export default function Detail(props)  {
     await Api.post("/movies/get-by-url",{url : url})
     .then((response) => {
       setMovie(response.data);
+      localStorage.setItem("currentMovie",JSON.stringify(response.data));
       if(response.data.category ==="filme"){
         webtor(response.data);
       }
@@ -163,8 +164,11 @@ export default function Detail(props)  {
     if(movie?.title){
         return movie?.title;
     }
-    else{
+    else if(movie?.name){
         return movie?.name;
+    }
+    else{
+      return 'Assistir filme online'
     }
   }
 
@@ -176,7 +180,7 @@ export default function Detail(props)  {
                 <meta name="description" content={movie?.synopsis}></meta>
                 <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/" + movie?.url}></meta>
                 <meta property="og:description" content={movie?.synopsis}></meta>
-                <meta name="keywords" content={getTitle(movie).toLowerCase()} data-react-helmet="true" />
+                <meta name="keywords" content={getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
                 </Helmet>
                         <button className="back-button" onClick={() => history.pop()}></button>               
                 <div className="row">

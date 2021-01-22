@@ -12,6 +12,7 @@ export default function DetailOne(props)  {
     await Api.post("/movies/get-by-url-one",{url1 : url1})
     .then((response) => {
       setMovie(response.data);
+      localStorage.setItem("currentMovie",JSON.stringify(response.data));
     }).catch((error) => {
       console.error(error)
     })
@@ -19,7 +20,7 @@ export default function DetailOne(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    if(localStorage.getItem("currentMovie") === null){
+    if(localStorage.getItem("currentMovie") === null || localStorage.getItem("currentMovie") === 'null' || localStorage.getItem("currentMovie") === ''){
       getByUrlOne(url1)
       }
     // eslint-disable-next-line
@@ -59,8 +60,11 @@ function getTitle(movie){
   if(movie?.title){
       return movie?.title;
   }
-  else{
+  else if(movie?.name){
       return movie?.name;
+  }
+  else{
+    return 'Assistir filme online'
   }
 }
 
@@ -71,7 +75,7 @@ function getTitle(movie){
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
                 <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
                 <meta property="og:description" content={movie?.synopsis}></meta>
-                <meta name="keywords" content={getTitle(movie).toLowerCase()} data-react-helmet="true" />
+                <meta name="keywords" content={getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
                 </Helmet>
 
                 <div className="parent-player">
