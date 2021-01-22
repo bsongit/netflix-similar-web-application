@@ -109,8 +109,8 @@ export default function Detail(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if(localStorage.getItem("currentMovie") === null){
-    getByUrl(url)
+    if(localStorage.getItem("currentMovie") === null || localStorage.getItem("currentMovie") === 'null' || localStorage.getItem("currentMovie") === ''){
+        getByUrl(url)
     }
     if(movie.category === "filme"){
         webtor(movie);
@@ -200,7 +200,7 @@ export default function Detail(props)  {
                 </div>
                 <div className="parent-player">
                 <div className="back-bt">
-                       <button  onClick={() => history.goBack()}>voltar</button>  
+                       <button  onClick={() => history.push('/')}>voltar</button>  
                 </div>
                     <div className={vVisibility? "visibility-show" : ""} id="player"></div>
                 </div>
@@ -212,7 +212,7 @@ export default function Detail(props)  {
                 {!vVisibility?
                 <div className={"content-detail"}>
                 <div className="back-bt">
-                       <button  onClick={() => history.goBack()}>voltar</button>  
+                       <button  onClick={() => history.push('/')}>voltar</button>  
                 </div>
                     <div className="border-center row d-flex">
                     <div className="content-item">
