@@ -1,5 +1,0 @@
-
-user-agent: *
-Sitemap : http://www.filmes-temporadas-online.ml/sitemap2.xml
-disallow: /downloads/
-disallow: /uploads/
