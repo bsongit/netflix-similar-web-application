@@ -71,11 +71,13 @@ export default function Index (){
 
     return (<div className="index-page">
             <Link to="/home"><Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/> </Link>
-            <article className="mt-2">
+            <h1>Assistir os <bold>melhores filmes de 2021</bold></h1>
+            <p>Navegue por mais de <bold>16 mil titulos de filmes e series</bold>. Online e grátis.</p>
+            <article >
             <div className="sub box-shadow" >
             <div >
             <header>
-            <Link className="text-yellow" to="/mulher-maravilha-1984-2020-torrent-dublado"><h1>Mulher Maravilha 1984 Dublado?</h1></Link>
+                <h1><Link className="text-yellow" to="/mulher-maravilha-1984-2020-torrent-dublado">Mulher Maravilha 1984 Dublado?</Link></h1>
             <p className="text-lighter-blue">postado por <i>overcore</i></p>
             <p>Temos um catalogo de mais de 16 mil filmes/séries <Link className="text-red" to="/home">filmes-temporadas-online.ml</Link></p>
             </header>
@@ -95,7 +97,7 @@ export default function Index (){
             <div className="sub box-shadow" >
             <div className="pl-1" >
             <header>
-            <Link className="text-yellow" to="/the-mandalorian-1a-temporada-completa-torrent-dublada-e-legendada"><h1>The Mandalorian 1ª temporada Dublado?</h1></Link>
+                <h1><Link className="text-yellow" to="/the-mandalorian-1a-temporada-completa-torrent-dublada-e-legendada">The Mandalorian 1ª temporada Dublado?</Link></h1>
             <p className="text-lighter-blue">postado por <i>overcore</i></p>
             <p>Temos um catalogo de mais de 16 mil filmes/séries <Link className="text-red" to="/home">filmes-temporadas-online.ml</Link></p>
             </header>

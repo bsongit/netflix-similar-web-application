@@ -111,10 +111,10 @@ export default function Home(props)  {
       <div className="container">
 
         <Helmet>
-                <title>{'Assistir filme online'}</title>
-                <meta name="description" content={"Assistir filmes e series, mais de 16 mil disponíveis via torrent ou player. Downloads e streamings"}></meta>
-                <meta property="og:title" content={"Assistir filme online"}></meta>
-                <meta property="og:url" content={"http://filmes-temporadas-online.ml/"}></meta>
+                <title>{'Assistir filmes e temporadas online'}</title>
+                <meta name="description" content={"Assistir filmes e temporadas online. Mais de 16 mil titulos disponíveis via torrent ou player. Downloads e streamings"}></meta>
+                <meta property="og:title" content={"Assistir filmes e temporadas online"}></meta>
+                <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/"}></meta>
         </Helmet>
         {windowChosseUrl && selectedMovie? <ChooseUrl contexWindowModal={[windowChosseUrl,setWindowChosseUrl]} movieContext={selectedMovie} selectMovie={selectMovie}/> : "" }
         
@@ -122,10 +122,10 @@ export default function Home(props)  {
           <Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/>
           
           <div id="description" className="hide-mobile hide-pc">
-              <h1>Assistir filme?</h1>
-              <p>É o que você poderá fazer aqui. Temos os melhores filmes já lançados em toda história do cinema.</p>
-              <h2>Assistir serie?</h2>
-              <p>É que você deve fazer em nossos sites, temos todas as temporadas da sua serie preferida. filmes-temporadas-online</p>
+              <h1>Onde assistir filmes e temporadas?</h1>
+              <p>Temos os melhores filmes já lançados em toda história do cinema.</p>
+              <h2>Assistir filmes e series?</h2>
+              <p>Temos todas as temporadas da sua serie preferida. www.filmes-temporadas-online.ml</p>
           </div>
           
           {window.innerWidth > 400? 
