@@ -80,7 +80,7 @@ function getTitle(movie){
 
                 <div className="parent-player">
                 <div className="back-bt">
-                       <button  onClick={() => history.push('/')}>voltar</button>  
+                       <button  onClick={() => history.push('/home')}>voltar</button>  
                 </div>
 
                     <div className={vVisibility? "visibility-show" : ""} id="player"  >
@@ -91,7 +91,7 @@ function getTitle(movie){
                 {!vVisibility?
                  <div className={"content-detail"}>
                 <div className="back-bt">
-                       <button  onClick={() => history.push('/')}>voltar</button>  
+                       <button  onClick={() => history.push('/home')}>voltar</button>  
                 </div>
                  <div className="border-center row d-flex">
                  <div className="content-item">

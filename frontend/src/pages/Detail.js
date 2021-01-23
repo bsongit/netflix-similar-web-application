@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Api from '../util/Api'
-import { useHistory , Link, useParams} from "react-router-dom";
+import { useHistory , useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
-import { getByTitle } from '@testing-library/react';
 export default function Detail(props)  {
   let history = useHistory();
   const [movie, setMovie] = useState(JSON.parse(localStorage.getItem('currentMovie')))
@@ -136,10 +135,12 @@ export default function Detail(props)  {
     var scpts = scripts?.map(scr => {
         if(scr.src.includes("p412601")){
             scr.remove()
+            return scr;
         }
+        return null;
     })
     end++;
-    // console.log(scpts);
+    console.log(scpts);
     }, 1000)
   }
 
@@ -202,7 +203,7 @@ export default function Detail(props)  {
                 </div>
                 <div className="parent-player">
                 <div className="back-bt">
-                       <button  onClick={() => history.push('/')}>voltar</button>  
+                       <button  onClick={() => history.push('/home')}>voltar</button>  
                 </div>
                     <div className={vVisibility? "visibility-show" : ""} id="player"></div>
                 </div>
@@ -214,7 +215,7 @@ export default function Detail(props)  {
                 {!vVisibility?
                 <div className={"content-detail"}>
                 <div className="back-bt">
-                       <button  onClick={() => history.push('/')}>voltar</button>  
+                       <button  onClick={() => history.push('/home')}>voltar</button>  
                 </div>
                     <div className="border-center row d-flex">
                     <div className="content-item">
@@ -278,7 +279,7 @@ export default function Detail(props)  {
                     <h2>Trailler {movie?.title}</h2>
                     </div>
                     <div>
-                    <iframe className="trailer"
+                    <iframe title="trailler" className="trailer"
                     src={`https://www.youtube-nocookie.com/embed/${movie?.trailer}?rel=0&modestbranding=1&showinfo=0&autoplay=1`}
                     frameborder="0" allow="picture-in-picture; paused"
                     allowfullscreen></iframe>
