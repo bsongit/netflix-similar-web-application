@@ -73,7 +73,7 @@ function getTitle(movie){
                 <title>{movie?.title + " assistir online"}</title>
                 <meta name="description" content={movie?.synopsis}></meta>
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
-                <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/assistir/" + movie?.url1}></meta>
                 <meta property="og:description" content={movie?.synopsis}></meta>
                 <meta name="keywords" content={getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
                 </Helmet>

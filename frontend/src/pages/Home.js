@@ -114,7 +114,7 @@ export default function Home(props)  {
                 <title>{'Assistir filmes e temporadas online'}</title>
                 <meta name="description" content={"Assistir filmes e temporadas online. Mais de 16 mil titulos disponíveis via torrent ou player. Downloads e streamings"}></meta>
                 <meta property="og:title" content={"Assistir filmes e temporadas online"}></meta>
-                <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/"}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/"}></meta>
         </Helmet>
         {windowChosseUrl && selectedMovie? <ChooseUrl contexWindowModal={[windowChosseUrl,setWindowChosseUrl]} movieContext={selectedMovie} selectMovie={selectMovie}/> : "" }
         
