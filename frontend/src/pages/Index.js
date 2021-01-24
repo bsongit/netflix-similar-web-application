@@ -1,119 +1,339 @@
 import React, {useState, useEffect} from 'react';
-import { useHistory,Link} from "react-router-dom";
-import ChooseUrl from '../components/ChooseUrl';
-import Cover from '../components/Cover';
-import Footer from '../components/Footer';
-import LoadComponent from '../components/LoadComponent';
-import Navbar from '../components/Navbar';
-import Pager from '../components/Pager';
-import Api from '../util/Api';
+import Api from '../util/Api'
+import { useHistory , useParams} from "react-router-dom";
 import {Helmet} from "react-helmet";
+export default function Index(props)  {
+  let history = useHistory();
+  const [movie, setMovie] = useState(JSON.parse(localStorage.getItem('currentMovie')))
+  const [vVisibility, setVVisibility] = useState(false);
+  const [hasClcik, setHasClick] = useState(false);
+  const [iframe, setIframe] = useState();
+  const [skipAnounce, setSkipAnounce] = useState(false);
+  const url = 'mulher-maravilha-1984-dublado'
 
-export default function Index (){
-
-    const [movies, setMovies] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState();
-    const [windowChosseUrl, setWindowChosseUrl] = useState(false);
-    const [primaryMovie, setPrimaryMovie] = useState();
-    const [load, setLoad] = useState(false);
-    const [moviesCarrossel, setMoviesCarrossel] = useState([]);
-    const [skipNumber, setSkipNumber] = useState(0);
-    const [category, setCategory] = useState("");
-    const [genere, setGenere] = useState("");
-    const [isArrive, setArrive] = useState(true);
-    let history = useHistory();
-  
-    async function getMovies(skip, category, genere) {
-        Api.post('/movies/get15', {skip : skip, category: category, genere : genere})
-        .then(response => {
-            setMovies(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      };
-    
-      async function loading(){
-        setArrive(false);
-        setTimeout(() => setLoad(false),1000)
+  async function getByUrl(url){
+    await Api.post("/movies/get-by-url",{url : url})
+    .then((response) => {
+      setMovie(response.data);
+      localStorage.setItem("currentMovie",JSON.stringify(response.data));
+      if(response.data.category ==="filme"){
+        webtor(response.data);
       }
+      else{
+        webtorEp(response.data);
+      }
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
 
-    async function getMoviesCorrossel(category, genere) {
-        Api.post('/movies/get3-carrossel',{category : category, genere : genere})
-        .then((response) => {
-            setMoviesCarrossel(response.data);
-            setPrimaryMovie(response.data[1]);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      };
+  function webtor(video){
+    window.webtor = window.webtor || [];
 
-    useEffect(() => {
-        getMoviesCorrossel(category, genere);
-        getMovies(skipNumber, category, genere);
-      },[skipNumber, category, genere]);
-    
-      function selectMovie(url){
-        if(url !== 'undefined'){
-        setLoad(true);
-        loading();
-        setTimeout(() => history.push(url),800)
+    window.webtor.push({
+        id: 'player',
+        baseUrl: 'https://webtor.io',
+        magnet:  video.magnet.split(",")[0],
+        width: '100%',
+        height: '100%',
+        features: {
+            continue:    false
+        },
+        on: function(e) {
+            if (e.name === window.webtor.TORRENT_FETCHED) {
+                for (const f of e.data.files) {
+                    if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
+                        setHasClick(true);
+                    }
+                    if (!f.name.endsWith('.mkv')) continue;
+                }
+            }
+            if (e.name === window.webtor.TORRENT_ERROR) {
+                console.log('Torrent error!')
+            }
+            if (e.name === window.webtor.INITED) {
+            }
+            if (e.name === window.webtor.OPEN) {
+            }
+            if (e.name === window.webtor.OPEN_SUBTITLES) {
+            }
+        },
+    });
+  }
+  function webtorEp(ep){
+    window.webtor = window.webtor || [];
+
+    window.webtor.push({
+        id: 'player',
+        baseUrl: 'https://webtor.io',
+        magnet:  ep,
+        width: '100%',
+        height: '100%',
+        features: {
+            continue:    false
+        },
+        on: function(e) {
+            if (e.name === window.webtor.TORRENT_FETCHED) {
+                for (const f of e.data.files) {
+                    if(f.name === "1XBET.COM_promo_SHREK_dinheiro_livre.mp4" || f.name ===  "COMANDOTORRENTS.COM.mp4"){
+                        setHasClick(true);
+                    }
+                    if (!f.name.endsWith('.mp4')) continue;
+                }
+            }
+            if (e.name === window.webtor.TORRENT_ERROR) {
+                console.log('Torrent error!')
+            }
+            if (e.name === window.webtor.INITED) {
+            }
+            if (e.name === window.webtor.OPEN) {
+            }
+            if (e.name === window.webtor.OPEN_SUBTITLES) {
+            }
+        },
+    });
+  }
+
+  var handleChange = function(event){
+    webtorEp(event.target.value);
+    setVVisibility(true);
+  }
+
+  var handleChange2 = function(event){
+    webtorEp(event.target.value);
+    iframe.remove();
+  }
+
+  console.log(movie)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if(localStorage.getItem("currentMovie") === null || localStorage.getItem("currentMovie") === 'null' || localStorage.getItem("currentMovie") === ''){
+        getByUrl(url)
+    }
+    if(movie !== null){
+        if(movie.category === "filme"){
+            webtor(movie);
         }
-      }
-    
-      function chooseUrl(movie){
-        setWindowChosseUrl(true);
-        setSelectedMovie(movie);
-        localStorage.setItem("currentMovie",JSON.stringify(movie));
-      }
-    
+        else{
+            webtorEp(movie); 
+        }
+        setIframe(document.getElementsByTagName('iframe')[0]);
+        watchAd(history)
+    }
+    // eslint-disable-next-line
+  },[])
 
-    return (<div className="index-page">
-            <Link to="/home"><Navbar  chooseUrlFunc={chooseUrl} contextArrive={[isArrive,setArrive]} contextLoad={[load,setLoad]} context={[category,setCategory]} contextSidebar={[genere, setGenere]}/> </Link>
-            <h1>Assistir os <bold>melhores filmes de 2021</bold></h1>
-            <p>Navegue por mais de <bold>16 mil titulos de filmes e series</bold>. Online e grátis.</p>
-            <article >
-            <div className="sub box-shadow" >
+  async function watchAd(){
+ var end = 0;
+  var interval = setInterval(function () {
+        if(end >= 50 || history.location.pathname === "/home" || history.location.pathname === "localhost:3000"){
+            clearInterval(interval)
+        }
+    
+    var scripts = [...document.getElementsByTagName("script")]
+    var scpts = scripts?.map(scr => {
+        if(scr.src.includes("p412601")){
+            scr.remove()
+            return scr;
+        }
+        return null;
+    })
+    end++;
+    console.log(scpts);
+    }, 1000)
+  }
+
+ function onWatch(){
+        setVVisibility(true)
+        if(hasClcik){
+            setSkipAnounce(true);
+        }
+  }
+
+  function getBestImg(movie){
+    if(movie?.urlImg3){
+      return movie.urlImg3;
+    }
+    else if(movie?.urlImg2){
+      return movie.urlImg2;
+    }
+    else{
+      return movie?.urlImg;
+    }
+  }
+
+  function getTitle(movie){
+    if(movie?.title){
+        return movie?.title;
+    }
+    else if(movie?.name){
+        return movie?.name;
+    }
+    else{
+      return 'Assistir filme online'
+    }
+  }
+
+  return (<div>
+    <div className="detail-bg" onClick={() => history.push('/home')}>
+                <Helmet>
+                <title>{movie?.title + " assistir online dublado"}</title>
+                <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online dublado"}></meta>
+                <meta name="description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
+                <meta property="og:description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
+                <link rel="canonical" href={"http://filmes-temporadas-online.ml/" + movie?.url}  />
+                <meta name="keywords" content={movie?.keywords? movie?.keywords : getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
+                </Helmet>
+                        <button className="back-button" onClick={() => history.pop()}></button>               
+                <div className="row">
+                <div className="select-series">
+                {(vVisibility && movie?.category === "serie") ? 
+                    <select  onChange={handleChange2} >
+                            <option  default>Selecionar outro epsódio</option>
+                                {movie?.eps.map(ep => {
+                                    return (
+                                        <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
+                                    )
+                                })}
+                    </select>
+                : ''} 
+
+                </div>
+                </div>
+                <div className="parent-player">
+                <div className="back-bt">
+                       <button  onClick={() => history.push('/home')}>voltar</button>  
+                </div>
+                    <div className={vVisibility? "visibility-show" : ""} id="player"></div>
+                </div>
+                <div className="row">
+                    <div className={skipAnounce? "skip-anounce" : "collapsed"}>Pause o anúncio ou clique em Next para pular:</div>
+                </div>
+                <div className={skipAnounce? "skip-invisible" : "collapsed"} onClick={() => setSkipAnounce(false)}></div>
+                <img  className={!vVisibility? "img-resume" : "collapsed"} src={movie? getBestImg(movie) : ""} alt={movie?.name}></img>
+                {!vVisibility?
+                <div className={"content-detail"}>
+                <div className="back-bt">
+                       <button  onClick={() => history.push('/home')}>voltar</button>  
+                </div>
+                    <div className="border-center row d-flex">
+                    <div className="content-item">
+                        <div className="title">
+                            <h1 >{movie?.name.toUpperCase()}</h1>
+                        </div>
+                        <div className="studio">
+                            <span>({movie?.studio})</span>
+                        </div>
+                        <div className="mt-1">
+                            <span>Estreado: {movie?.release}</span>
+                        </div>
+                        <div>
+                            <span>Duração: {movie?.duration}</span>
+                        </div>
+                        <div>
+                            <span>Autor: {movie?.author}</span>
+                        </div>
+                        <div>
+                            <span>Gênero: {movie?.genere}</span>
+                        </div>
+                        <div className="text-yellow">
+                            <span>Nota: {movie?.imdb}</span>
+                        </div>
+                        <div className="text-shadow-light-blue">
+                            <p>Sinopse: {movie?.synopsis}</p>
+                        </div>
+
+                        <div className="bg-dark-blue text-yellow">
+                            <p><bold>Atenção : O magnet player pode demorar um pouco para baixar seu filme. Isso sempre depende do horário e quantidade de 'peers || seeders'.</bold></p>
+                        </div>
+
+                        <div className={movie?.category === "filme"? 'mt-2' : 'collapsed'}>
+                            <button onClick={() => onWatch() }>Assistir filme </button>
+                        </div>
+                        <div className="mt-2 w-50 bg-dark-blue">
+                        {movie?.category === "serie"?
+                        
+                        <select  onChange={handleChange} >
+                                <option  default>Escolha um epsódio</option>
+                                {movie?.eps.map(ep => {
+                                    return (
+                                        <option  value={ep[Object.keys(ep)]}>{Object.keys(ep)}</option>
+                                    )
+                                })}
+                                </select>
+                        
+                        : ''}
+
+                        </div>
+                        </div>
+                        <div className="hide-mobile  picture-item">
+                            <img src={getBestImg(movie)} alt={movie?.name}></img>
+                        </div>
+                    </div>
+
+
+                    <div className="lastcontent">
+            <div className="content d-block d-col">
             <div >
-            <header>
-                <h1><Link className="text-yellow" to="/mulher-maravilha-1984-2020-torrent-dublado">Mulher Maravilha 1984 Dublado?</Link></h1>
-            <p className="text-lighter-blue">postado por <i>overcore</i></p>
-            <p>Temos um catalogo de mais de 16 mil filmes/séries <Link className="text-red" to="/home">filmes-temporadas-online.ml</Link></p>
-            </header>
-            <p> Assistir <bold>Mulher Maravilha 1984</bold> dublado via torrent ou player. Assistir filme dublado.</p>
+                    <h2>Trailler {movie?.title}</h2>
+                    </div>
+                    <div>
+                    <iframe title="trailler" className="trailer"
+                    src={`https://www.youtube-nocookie.com/embed/${movie?.trailer}?rel=0&modestbranding=1&showinfo=0&autoplay=1`}
+                    frameborder="0" allow="picture-in-picture; paused"
+                    allowfullscreen></iframe>
+                    </div>
+                <div className="text-shadow-light-blue">
+                    <p>
+                    {movie?.plot}
+                    </p>
+                </div>
+            <div className="mt-1 text-shadow-light-blue">
+                
+                    <div >
+                        <strong>Classificação: {movie?.classifBR}</strong>
+                    </div>
+                    <div >
+                    <strong>Orçamento: {movie?.budget}</strong>
+                    </div>
+                    <div >
+                    <strong> Bilheteria: {movie?.ticketgain}</strong>
+                    </div>
+                    <div >
+                        <strong>{movie?.releaseCinemaBr}</strong>
+                    </div>
+                    <div >
+                    <strong>{movie?.releaseDigital}</strong>
+                    </div>
+                    <div >
+                    <strong>{movie?.releaseDvD}</strong>
+                    </div>
 
-            <Link className="text-red" to="/mulher-maravilha-1984-2020-torrent-dublado"><h2>Sinopse <bold>Mulher Maravilha 1984</bold></h2></Link>
-            <p >Em 1984, <bold>Diana Prince</bold> entra em conflito com dois inimigos formidáveis. <Link className="text-red" to="/mulher-maravilha-1984-2020-torrent-dublado"> continuar lendo...</Link>
-            </p>
+                    
+            </div>
+            </div>
             </div>
 
-            <div>
-            <Link to="/mulher-maravilha-1984-2020-torrent-dublado"><img className="ml-1 mt-1 rounded box-shadow" src="./posters/mulher-maravilha-1984.jpg" alt="capa do filme mulher maravilha 1984"></img></Link>
-            </div>
-            </div>
-        </article>
-        <article className="mt-2">
-            <div className="sub box-shadow" >
-            <div className="pl-1" >
-            <header>
-                <h1><Link className="text-yellow" to="/the-mandalorian-1a-temporada-completa-torrent-dublada-e-legendada">The Mandalorian 1ª temporada Dublado?</Link></h1>
-            <p className="text-lighter-blue">postado por <i>overcore</i></p>
-            <p>Temos um catalogo de mais de 16 mil filmes/séries <Link className="text-red" to="/home">filmes-temporadas-online.ml</Link></p>
-            </header>
-            <p> Assistir <bold>The Mandalorian 1ª temporada </bold> dublado via torrent ou player. Assistir série dublada.</p>
 
-            <Link className="text-red" to="/the-mandalorian-1a-temporada-completa-torrent-dublada-e-legendada"><h2>Sinopse <bold>The Mandalorian</bold></h2></Link>
-            <p >A saga de um guerreiro solitário, que também é um mercenário e pistoleiro, viajando pelos territórios esquecidos e marginais do espaço<Link className="text-red" to="/the-mandalorian-1a-temporada-completa-torrent-dublada-e-legendada"> continuar lendo...</Link>
-            </p>
-            </div>
+                </div>
+                
+                : ""}
 
-            <div className="pr-1">
-            <Link to="/the-mandalorian-1a-temporada-completa-torrent-dublada-e-legendada"><img className="mt-1 rounded box-shadow" src="./posters/the-mandalorian-1.jpg" alt="capa da série the madalorian primeira temporada"></img></Link>
-            </div>
-            </div>
-        </article>
-        <Footer></Footer>
-      </div>
-        )
+        </div>
+        <div className="headline">
+                        {movie?.cardheadline? 
+                            <div className="row text-justify text-shadow-light-blue">
+                                     {movie?.cardheadline}  
+                            </div>
+                        : ""}
+        </div>
+        </div>
+  )
 }
+
+
+
+
+

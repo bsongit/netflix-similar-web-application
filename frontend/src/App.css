@@ -63,6 +63,12 @@ body{
   background-color: black !important;
 }
 
+.headline{
+  margin-top: 125vh;
+  display: flex;
+  align-items: flex-end;
+  z-index: -2;
+}
 .modal{
   z-index: 6000;
   position: fixed;

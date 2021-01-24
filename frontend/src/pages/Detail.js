@@ -127,7 +127,7 @@ export default function Detail(props)  {
   async function watchAd(){
  var end = 0;
   var interval = setInterval(function () {
-        if(end >= 50 || history.location.pathname === "/" || history.location.pathname === "localhost:3000"){
+        if(end >= 50 || history.location.pathname === "/home" || history.location.pathname === "localhost:3000"){
             clearInterval(interval)
         }
     
@@ -176,7 +176,7 @@ export default function Detail(props)  {
   }
 
   return (<div>
-    <div className="detail-bg">
+    <div className="detail-bg" >
                 <Helmet>
                 <title>{movie?.title + " assistir online dublado"}</title>
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online dublado"}></meta>
