@@ -182,8 +182,8 @@ export default function Index(props)  {
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online dublado"}></meta>
                 <meta name="description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
                 <meta property="og:description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
-                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
-                <link rel="canonical" href={"http://filmes-temporadas-online.ml/" + movie?.url}  />
+                <meta property="og:url" content={"http://filmes-temporadas-online.ml/"}></meta>
+                <link rel="canonical" href={"http://filmes-temporadas-online.ml/"}  />
                 <meta name="keywords" content={movie?.keywords? movie?.keywords : getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
                 </Helmet>
                         <button className="back-button" onClick={() => history.pop()}></button>               
