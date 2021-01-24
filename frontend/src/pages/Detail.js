@@ -175,15 +175,15 @@ export default function Detail(props)  {
     }
   }
 
-  return (<div className="detail-bg">
+  return (<div>
+    <div className="detail-bg">
                 <Helmet>
-                <title>{movie?.title + " assistir online"}</title>
-                <meta name="description" content={movie?.synopsis}></meta>
-                <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online"}></meta>
-                <meta name="description" content={movie?.synopsis}></meta>
+                <title>{movie?.title + " assistir online dublado"}</title>
+                <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online dublado"}></meta>
+                <meta name="description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
+                <meta property="og:description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
                 <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
-                <meta property="og:description" content={movie?.synopsis}></meta>
-                <meta name="keywords" content={getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
+                <meta name="keywords" content={movie?.keywords? movie?.keywords : getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
                 </Helmet>
                         <button className="back-button" onClick={() => history.pop()}></button>               
                 <div className="row">
@@ -319,7 +319,15 @@ export default function Detail(props)  {
                 </div>
                 
                 : ""}
-  
+
+        </div>
+        <div className="headline">
+                        {movie?.cardheadline? 
+                            <div className="row text-justify text-shadow-light-blue">
+                                     {movie?.cardheadline}  
+                            </div>
+                        : ""}
+        </div>
         </div>
   )
 }
