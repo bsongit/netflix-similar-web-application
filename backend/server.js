@@ -17,6 +17,10 @@ cors.init(app)
 //DB
 database.connect();
 
+app.get("/viuva-negra", (request, response) => {
+  response.sendFile("/view/pages/viuva-negra-filme-2021.html")
+  })
+
 // ROUTES
 app.use('/api', require('./src/routes'));
 
