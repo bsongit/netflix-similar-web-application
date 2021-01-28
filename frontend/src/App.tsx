@@ -20,7 +20,7 @@ export default function App() {
       <Route exact path="/:url" component={Detail} />
       <Route exact path="/assistir/:url1" component={DetailOne} />
 
-      <Route path='/pages/viuva-negra-filme-2021.html' onEnter={"sssss"} />
+      <Route path='/pages/viuva-negra-filme-2021' />
       {/* <Route exact path="/page/viuva-negra" location="/pages/viuva-negra-filme-2021.html" /> */}
 
       {/* <Route path="*" component={'Página desconhecida'} /> */}
