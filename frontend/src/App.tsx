@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import "./App.css";
 import Detail from './pages/Detail';
@@ -11,6 +12,7 @@ export default function App() {
     url : string,
     url1: string
   }
+
   return (
   <BrowserRouter>
     <Switch>
@@ -19,8 +21,6 @@ export default function App() {
       <Route exact path="/home" component={Home} />
       <Route exact path="/:url" component={Detail} />
       <Route exact path="/assistir/:url1" component={DetailOne} />
-      {/* <Route exact path="/page/viuva-negra" location="/pages/viuva-negra-filme-2021.html" /> */}
-
       {/* <Route path="*" component={'Página desconhecida'} /> */}
     </Switch>
   </BrowserRouter>
