@@ -107,8 +107,8 @@ export default function Detail(props)  {
   console.log(movie)
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    if(movie !== undefined || movie.url !== url){    
+    console.log(movie)
+    if(movie !== null || movie.url !== url){    
             getByUrl(url)
     }
     if(movie !== null){
