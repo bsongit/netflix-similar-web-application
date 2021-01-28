@@ -171,7 +171,7 @@ export default function Detail(props)  {
         return movie?.name;
     }
     else{
-      return 'Assistir filme online'
+      return 'NiceFilmes'
     }
   }
 
@@ -182,11 +182,10 @@ export default function Detail(props)  {
                 <Helmet>
                 <title>{movie?.title + " assistir online dublado"}</title>
                 <meta property="og:title" content={'Filme ' + getTitle(movie) + " assistir online dublado"}></meta>
-                <meta name="description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
-                <meta property="og:description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://filmes-temporadas-online.ml/" + movie?.url + " || " + movie?.synopsis}></meta>
-                <meta property="og:url" content={"http://filmes-temporadas-online.ml/" + movie?.url}></meta>
-                <link rel="canonical" href={"http://filmes-temporadas-online.ml/" + movie?.url}  />
-                <meta name="keywords" content={movie?.keywords? movie?.keywords : getTitle(movie || null).toLowerCase()} data-react-helmet="true" />
+                <meta name="description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://nicefilmes.net/" + movie?.url + " || " + movie?.synopsis}></meta>
+                <meta property="og:description" content={'Filme ' + getTitle(movie) + " assistir online || 720p "  + "Dublado " + getTitle(movie) + " || 1080p " + movie?.name + " http://nicefilmes.net/" + movie?.url + " || " + movie?.synopsis}></meta>
+                <meta property="og:url" content={"http://nicefilmes.net/" + movie?.url}></meta>
+                <link rel="canonical" href={"http://nicefilmes.net/" + movie?.url}  />
                 </Helmet>
                         <button className="back-button" onClick={() => history.pop()}></button>               
                 <div className="row">

@@ -111,10 +111,10 @@ export default function Home(props)  {
       <div className="container">
 
         <Helmet>
-                <title>{'Assistir filmes e temporadas online'}</title>
-                <meta name="description" content={"Assistir filmes e temporadas online. Mais de 16 mil titulos disponíveis via torrent ou player. Downloads e streamings"}></meta>
-                <meta property="og:title" content={"Assistir filmes e temporadas online"}></meta>
-                <meta property="og:url" content={"http://www.filmes-temporadas-online.ml/"}></meta>
+                <title>{'NiceFilmes - Assistir filmes e séries online'}</title>
+                <meta name="description" content={"NiceFilmes. Mais de 16 mil titulos disponíveis via torrent ou player. Downloads e streamings"}></meta>
+                <meta property="og:title" content={"NiceFilmes"}></meta>
+                <meta property="og:url" content={"http://www.nicefilmes.net/"}></meta>
         </Helmet>
         {windowChosseUrl && selectedMovie? <ChooseUrl contexWindowModal={[windowChosseUrl,setWindowChosseUrl]} movieContext={selectedMovie} selectMovie={selectMovie}/> : "" }
         
@@ -125,7 +125,7 @@ export default function Home(props)  {
               <h1>Onde assistir filmes e temporadas?</h1>
               <p>Temos os melhores filmes já lançados em toda história do cinema.</p>
               <h2>Assistir filmes e series?</h2>
-              <p>Temos todas as temporadas da sua serie preferida. www.filmes-temporadas-online.ml</p>
+              <p>Temos todas as temporadas da sua serie preferida. www.nicefilmes.net</p>
           </div>
           
           {window.innerWidth > 400? 
