@@ -108,8 +108,8 @@ export default function Detail(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if(localStorage.getItem("currentMovie") === null || localStorage.getItem("currentMovie") === 'null' || localStorage.getItem("currentMovie") === ''){
-        getByUrl(url)
+    if(movie !== undefined || movie.url !== url){    
+            getByUrl(url)
     }
     if(movie !== null){
         if(movie.category === "filme"){
@@ -174,6 +174,8 @@ export default function Detail(props)  {
       return 'Assistir filme online'
     }
   }
+
+  console.log(url)
 
   return (<div>
     <div className="detail-bg" >

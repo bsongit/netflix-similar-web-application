@@ -20,7 +20,7 @@ export default function DetailOne(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    if(localStorage.getItem("currentMovie") === null || localStorage.getItem("currentMovie") === 'null' || localStorage.getItem("currentMovie") === ''){
+    if(movie !== undefined || movie.url1 !== url1){
       getByUrlOne(url1)
       }
     // eslint-disable-next-line
@@ -67,6 +67,8 @@ function getTitle(movie){
     return 'Assistir filme online'
   }
 }
+
+console.log(url1)
 
   return (<div className="detail-bg">
                 <Helmet>

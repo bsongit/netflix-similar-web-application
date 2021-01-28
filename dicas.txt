@@ -1,12 +1,4 @@
-SEO
-
-#1
-<h6>
-    <a href='/filmes/assistir-online-a-5-ordf-onda/' title='A 5ª Onda'>A 5ª Onda</a>
-</h6>
-
-#2 usar prefixo assistir-online
-<a href='filmes/assistir-online-a-5-ordf-onda/'> 
-    Assistir
-    <i class='ion-android-arrow-dropright'></i> 
-</a>
+pepaflix
+nicefilmes.net
+seufilme.net
+assistirfilme.net
