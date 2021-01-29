@@ -19,18 +19,31 @@ mv build html
 ls
 cd ..
 
+criar gmail
+1 - printrest
+2 - blogsport
+3 - blogger
+4 - tiktok
+5 - snapchat
+6 - wikipedia
+7 - linkedin
+8 - askme
+9 - olx
+10- youtube
+11 = sitesgoogle
+12 -https://m.vlive.tv
+13 - cost.tv
+14 - https://inova.instructure.com/eportfolios
+15 - https://megaseriesonline.medium.com
+16 - https://www.uplabs.com/
+17 - assistirfilmesonline.me.websiteoutlook.com
 
-    <link rel="stylesheet" href="http://cdn.plyr.io/3.5.10/plyr.css">
-    <script src="http://cdn.plyr.io/3.5.10/plyr.js"></script>
+
+extra - criar blogs e sites de terceiros que dão as dicas da pessoa assistir no nicefilmes
 
 
 
 
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^www.filmes-temporadas-online.ml 
-RewriteRule (.*) http://filmes-temporadas-online.ml/$1 [R=301,L]
 
-
-torrents quebrados
-SMALLVILLE AS AVENTURAS DO SUPERBOY 10ª TEMPORADA COMPLETA TORRENT DUBLADA
-anime do full metal
+pegar as imagens BG desse sites
+https://flirt-anddatings1.com/?u=ma4pd0d&o=f1n89ku&t=sex_dating_gen&cid=sex_dating&s1=prindall.grupoeyd.es&chan=prindall.grupoeyd.es&pm-sub=prindall.grupoeyd.es

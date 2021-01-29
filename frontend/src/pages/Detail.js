@@ -108,7 +108,7 @@ export default function Detail(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
     console.log(movie)
-    if(movie !== null || movie.url !== url){    
+    if(movie !== 'null' || movie !== null || movie.url !== url){    
             getByUrl(url)
     }
     if(movie !== null){
@@ -310,14 +310,10 @@ export default function Detail(props)  {
                     </div>
                     <div >
                     <strong>{movie?.releaseDvD}</strong>
-                    </div>
-
-                    
+                    </div>              
             </div>
             </div>
             </div>
-
-
                 </div>
                 
                 : ""}

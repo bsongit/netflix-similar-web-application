@@ -20,7 +20,7 @@ export default function DetailOne(props)  {
   useEffect(() => {
     window.scrollTo(0, 0);
     console.log(movie)
-    if(movie !== null || movie.url1 !== url1 ){
+    if(movie !== 'null' || movie !== null || movie.url1 !== url1 ){
       getByUrlOne(url1)
       }
     // eslint-disable-next-line
