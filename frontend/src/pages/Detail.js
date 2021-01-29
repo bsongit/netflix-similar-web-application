@@ -127,7 +127,7 @@ export default function Detail(props)  {
   async function watchAd(){
  var end = 0;
   var interval = setInterval(function () {
-        if(end >= 50 || history.location.pathname === "/home" || history.location.pathname === "localhost:3000"){
+        if(end >= 3600 || history.location.pathname === "/home" || history.location.pathname === "localhost:3000"){
             clearInterval(interval)
         }
     
@@ -139,8 +139,20 @@ export default function Detail(props)  {
         }
         return null;
     })
+    var iframes = Object.entries(document.getElementsByTagName('iframe'));
+    var playersQuantity = 0;
+    iframes.map(iframe => {
+        if(!iframe[1].attributes.src?.value.includes('webtor') || playersQuantity  === 1){
+          iframe[1].remove()
+        }
+        else{
+            playersQuantity++;
+            console.log(playersQuantity)
+        }
+      })
+
+
     end++;
-    console.log(scpts);
     }, 1000)
   }
 

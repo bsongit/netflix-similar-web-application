@@ -78,8 +78,9 @@ export default function Home(props)  {
   useEffect(() => {
     getMoviesCorrossel(category, genere);
     getMovies(skipNumber, category, genere);
-    document.getElementsByTagName('iframe')?.map(iframe => {
-      iframe.remove();
+    var iframes = Object.entries(document.getElementsByTagName('iframe'));
+    iframes.map(iframe => {
+        iframe[1].remove()
     })
   },[skipNumber, category, genere]);
 
