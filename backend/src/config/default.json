@@ -1,6 +1,6 @@
 {
 "database": {
-    "mongo-uri": "mongodb+srv://werbeson2:8HjHt1AWOSnx9qre@cluster0.w4emw.mongodb.net/temporadas-movies-db?retryWrites=true&w=majority"
+    "mongo-uri": "YOUR MONGO URI"
     },
 "server": {
     "port": 3000,
